@@ -1,0 +1,3 @@
+* xref:index.adoc[Home]
+* xref:sample1.adoc[Sample Page 1]
+* xref:sample2.adoc[Sample Page 2]

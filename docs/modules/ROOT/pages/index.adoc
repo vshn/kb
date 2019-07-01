@@ -1,0 +1,3 @@
+= Customer Knowledge Base
+
+This is the entry page of the Customer Knowledge Base. Use the Search field at the top of this page or navigate topics with the tree on the left.
