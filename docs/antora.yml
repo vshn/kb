@@ -1,5 +1,5 @@
-name: ckb
-title: Customer Knowledge Base
+name: kb
+title: VSHN Knowledge Base
 version: 0.0.1
 start_page: ROOT:index.adoc
 nav:

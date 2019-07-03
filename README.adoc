@@ -1,3 +1,3 @@
-= Customer Knowledge Base
+= VSHN Knowledge Base
 
-This repository contains all the documents of the Customer Knowledge Base hosted in https://kb.vshn.net/[kb.vshn.net].
+This repository contains all the documents of the VSHN Knowledge Base hosted in https://kb.vshn.net/[kb.vshn.net].
