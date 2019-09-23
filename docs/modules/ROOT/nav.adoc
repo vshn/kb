@@ -1,3 +1,7 @@
 * xref:index.adoc[Home]
-* xref:sample1.adoc[Sample Page 1]
-* xref:sample2.adoc[Sample Page 2]
+
+* How-To Articles
+** xref:create_ticket.adoc[Create a Ticket]
+** xref:solr_backup_restore.adoc[Solr Backup and Restore]
+** xref:vcs_repos_burp.adoc[VCS Repositories with Burp]
+** xref:view_backup_log_file[View Backup Log File]

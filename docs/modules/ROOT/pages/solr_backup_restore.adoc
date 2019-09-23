@@ -1,0 +1,77 @@
+= Solr Backup and Restore
+
+== Backup
+
+Solr has its own pre-backup script:
+
+* https://git.vshn.net/vshn/solr-pre-backup[Git repository]
+* https://launchpad.net/~vshn/+archive/ubuntu/backup[PPA: VSHN/backup]
+
+The script iterates over all cores, and for every core:
+
+* Remove previous dump.
+* Create snapshot.
+* Dump snapshot.
+* List snapshots.
+* Delete all snapshots that have been created by this pre-backup script.
+
+Notes:
+
+* The pre-backup script is configured and integrated into burp by https://git.vshn.net/vshn-puppet/profile_solr[profile_solr].
+* Solr supports dumping a core without creating a snapshot, but tests in practice have shown that this doesn't work reliably; dumps can fail non-deterministically, probably due to concurrent updates.
+* The dump status of Solr is poorly implemented. In particular if the dump produced an exception, the dump status won't tell WHICH dump failed, hence the pre-backup script might report an error even if the CURRENT dump actually succeeded. Re-running the pre-backup script MAY eventually resolve this situation.
+
+== Restore
+
+List available backups using the burp command:
+
+[source,bash]
+--
+$ sudo burp -a L -r '/var/lib/solr-backup/snapshot.solr-pre-backup.<core>'
+--
+
+Restore dump to /tmp/:
+
+[source,bash]
+--
+$ sudo burp -a r -b <backup_number> -r '/var/lib/burp-backup/snapshot.solr-pre-backup.<core>' -d /tmp
+# creates /tmp/var/lib/solr-backup/snapshot.solr-pre-backup.<core>.<date>.<time> with all the core's data
+--
+
+Finally, the core must be re-imported into Solr:
+
+[source,bash]
+--
+$ curl
+http://localhost:8983/solr/<core_to>/replication?command=restore&location=%2ftmp%2fvar%2flib%2fsolr-backup%2f&name=solr-pre-backup.<core_backup>.<date>.<time_encoded>
+--
+
+Note:
+
+* You can restore *any <core_backup>* to *any existing (but empty) <core_to>*
+* *location* may need to be adjusted if you restored the files somewhere other than /tmp (escape the slashes as %2f)
+* *time_encoded:* Encode the ':' as *'%3A'*
+* The *'snapshot.'* prefix must be removed
+* If your Solr is set up to use *TLS*, you probably need `--insecure`
+* If your Solr is set up to use *authentication*, you probably need `--basic -u '<user>:<password>'`
+
+You can now monitor the progress of the restore:
+
+[source,bash]
+--
+$ curl http://localhost:8983/solr/<core_to>/replication?command=restorestatus
+--
+
+Note:
+
+* The `responseHeader.exception` field will contain an exception if something went wrong
+** Check the permissions of the restored files; if required, fix them e.g. using
++
+[source,bash]
+--
+$ chown -R solr:solr /tmp/var/lib/solr-backup
+--
+
+* The `responseHeader.status` field will either say "In Progress" and finally "success" if everything is well.
+* If your Solr is set up to use *TLS*, you probably need `--insecure`
+* If your Solr is set up to use *authentication*, you probably need `--basic -u '<user>:<password>'`

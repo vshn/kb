@@ -1,0 +1,21 @@
+= View Backup Log File
+
+== Problem
+
+I want to see the log files of a backup.
+
+== Step-by-step guide
+
+. Login to the server.
+. Run the following command:
++
+[source, bash]
+--
+$ sudo burp -a s
+--
+
+. Navigate using the arrow keys to the desired backup log.
+.. kbd:[&rightarrow;] to navigate one step deeper.
+.. kbd:[&leftarrow;] to navigate one step back.
+.. kbd:[&uparrow;] and kbd:[&downarrow;] for going up and down.
+. Exit the console using kbd:[Ctrl + C].
