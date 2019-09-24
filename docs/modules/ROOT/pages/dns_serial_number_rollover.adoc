@@ -25,7 +25,7 @@ You will see that the hidden master (ns0) has the new, but lower serial number, 
 
 To fix that, take the old serial number (the one the slaves still use) and calculate:
 
-stem:[new_serial = (old_serial + 2^31 - 1) % 2^32]
+stem:[newserial = (oldserial + 2^31 - 1) % 2^32]
 
 (most calculator apps will do this just fine), insert it *without using the SERIALAUTOUPDATE feature* and push the zone change.
 
