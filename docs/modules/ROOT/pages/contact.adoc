@@ -1,0 +1,34 @@
+:page-partial:
+
+= Contact VSHN
+
+== Office hours
+
+09:00 until 18:00 Monday to Friday excluding public Holidays (Zurich) 
+
+== E-Mail Support / Helpdesk
+
+See xref:create_ticket.adoc[Create Ticket] for detailed information. The ticket system is fully integrated into our https://control.vshn.net/[Customer Portal].
+
+== Contact address
+
+Neugasse 10 +
+CH-8005 Zürich
+
+=== Telefon:
+
+Office Hours: +41 44 545 53 00 +
+Outside Office Hours: +41 44 545 53 73
+
+IMPORTANT: Only customers with a 24/7 Service Level Agreement (SLA 7x24 Reaktiv / SLA 7x24 Proaktiv) are entitled to support services outside office hours.
+
+E-Mail: info@vshn.ch +
+Support E-Mail: support@vshn.ch
+
+NOTE: Please use support@vshn.ch for support requests or call us. E-Mails to support@vshn.ch are tracked in our Ticket System and help us to improve response time and quality of service.
+
+== Emergency contact procedure outside office hours
+
+WARNING: Only customers with a 24/7 Service Level Agreement (SLA 7x24 Reaktiv / SLA 7x24 Proaktiv) are entitled to support services outside office hours.
+
+image::emergency.png[]

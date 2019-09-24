@@ -1,15 +1,28 @@
 * xref:index.adoc[Home]
 
-* xref:create_ticket.adoc[Create a Ticket]
-* xref:dns_serial_number_rollover.adoc[DNS Serial Number Rollover]
-* xref:list_available_backups.adoc[List Available Backups]
-* xref:list_files_backup.adoc[List Files in Backup]
-* xref:mongodb_burp.adoc[MongoDB with BURP]
-* xref:openshift_project_access.adoc[OpenShift: Manage access to a project]
-* xref:postgresql_burp.adoc[PostgreSQL with BURP]
-* xref:restore_from_backup.adoc[Restore Files from Backup]
-* xref:restore_mysql_burp.adoc[Restore MySQL/MariaDB with BURP]
-* xref:s3_backup_restores.adoc[S3 Backup and Restores]
-* xref:solr_backup_restore.adoc[Solr Backup and Restore]
-* xref:vcs_repos_burp.adoc[VCS Repositories with BURP]
-* xref:view_backup_log_file.adoc[View Backup Log File]
+* xref:contact.adoc[Contact VSHN]
+
+* Concepts
+** Backup Concept
+** Monitoring Concept
+
+* How-To Articles
+** xref:create_ticket.adoc[Create a Ticket]
+** xref:dns_serial_number_rollover.adoc[DNS Serial Number Rollover]
+** xref:list_available_backups.adoc[List Available Backups]
+** xref:list_files_backup.adoc[List Files in Backup]
+** xref:mongodb_burp.adoc[MongoDB with BURP]
+** xref:openshift_project_access.adoc[OpenShift: Manage access to a project]
+** xref:postgresql_burp.adoc[PostgreSQL with BURP]
+** xref:restore_from_backup.adoc[Restore Files from Backup]
+** xref:restore_mysql_burp.adoc[Restore MySQL/MariaDB with BURP]
+** xref:s3_backup_restores.adoc[S3 Backup and Restores]
+** xref:solr_backup_restore.adoc[Solr Backup and Restore]
+** xref:vcs_repos_burp.adoc[VCS Repositories with BURP]
+** xref:view_backup_log_file.adoc[View Backup Log File]
+
+* VSHN Control APIs
+** Basics
+** DNS
+** OpenShift
+** Servers
