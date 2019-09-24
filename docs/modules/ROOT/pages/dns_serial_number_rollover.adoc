@@ -2,7 +2,11 @@
 
 = DNS Serial Number Rollover
 
-NOTE: This applies to customers with a managed DNS service from VSHN.
+[NOTE]
+.Restrictions
+--
+This applies only to customers with a managed DNS service from VSHN.
+--
 
 If you need to lower the DNS serial number, propagation to the slave name servers will not work as expected. The problem is that the slaves only accept zone updates with a higher serial number.
 
