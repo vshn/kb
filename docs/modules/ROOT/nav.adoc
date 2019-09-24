@@ -1,6 +1,7 @@
 * xref:index.adoc[Home]
 
 * xref:create_ticket.adoc[Create a Ticket]
+* xref:mongodb_burp.adoc[MongoDB with BURP]
 * xref:openshift_project_access.adoc[OpenShift: Manage access to a project]
 * xref:postgresql_burp.adoc[PostgreSQL with BURP]
 * xref:restore_from_backup.adoc[Restore Files from Backup]
