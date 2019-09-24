@@ -1,0 +1,141 @@
+= Customer Pacco
+
+This is a special how-to for customers which want do do puppet module / profile development. The idea is to need access to as few as possible puppet modules in our gitlab, meaning that the VM will not get most of the VSHN basic puppet modules, mainly just the customer profile / the profile that wants to be developed on and it's dependencies.
+
+There are of course things like not purging the vagrant user, packagemanger, etc. which we cannot live without. 
+
+== Setup
+
+. Install https://www.virtualbox.org/wiki/Downloads[VirtualBox].
+. Install https://www.vagrantup.com/[Vagrant] (2.x version works well, will also work with old 1.8+ vagrant).
+. Get yourself familiar with https://git.vshn.net/vshn/pacco[pacco], read the https://git.vshn.net/vshn/pacco/blob/master/README.md[README]
+
+. Clone pacco to your workstation (latest tag, not master or devel!)
++
+[source,bash]
+--
+$ git clone git@git.vshn.net:vshn/pacco.git
+--
++
+You can clone this to any directory you want. The folder does not need to be called "pacco".
+
+. Create a SSH RSA key WITHOUT a passphrase, and add it in GitLab to your user. Keep this key safe and personal.
+** *Do not share the created puppet master VM*, as this key is copied into that VM on provision.
+** Do not use your normal SSH key with passphrase removed. You need to be able to remove this key from GitLab at anytime. 
+
+. Configure the vagrant environment in the `.vagrantuser` file.
++
+*From here on all command examples are executed inside the pacco folder where you cloned pacco.*
++
+[source,bash]    
+..vagrantuser
+--
+projectname: 'pacco' # change this, if you use multiple copies of pacco
+puppetserver_tag: v1.1.0
+r10k_repo: git@git.vshn.net:<customer>/pacco-r10k.git # the customer minimal r10k control repo
+r10k_deploykey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    the key created in step 5
+    -----END RSA PRIVATE KEY-----
+--
++
+We use a per customer r10k control repo here including only public accessible and needed modules from VSHN. 
+** Currently there is no automatic way to keep module version up to date in this control repository.
+
+. Clone the special minimal hieradata (VSHN needs to give a customer access to this repo)
++
+[source,bash]
+--
+$ cd data
+$ git clone git@git.vshn.net:vshn-puppet/pacco_basic_hieradata.git hieradata
+--
+
+. Start the Puppet master
++
+[source,bash]
+--
+$ vagrant up master
+--
++
+This will take a while. Red messages in vagrant output are kind of normal – errors are not, though. 
+
+. Clone the puppet environment. It's a branch in the customer pacco-r10k control repo and should be named `<Customer>Pacco`
++
+[source,bash]
+--
+$ vagrant ssh master -- docker-compose -f /vagrant/docker-compose.yaml exec r10k r10k deploy environment <Customer>Pacco -pv
+--
++
+TIP: This is a SSH remote execute into the master VM and there an execution of docker-compose inside the r10k container.
+
+. Define your first agent VM. The definition of the VM goes into `data/vmdefinitions`.
++
+*Do not forget to set the correct environment*, the one from step 8.
++
+[source,bash]
+.data/vmdefinitions/agent1.vagrant.dev.yaml
+--
+---
+## Puppet ENC
+environment: '<Customer>Pacco'
+parameters:
+    customer: '<customer>'
+    project: 'localdev'
+    role: 'vagrant'
+    zone: puppet4
+    location: 'vagrant'
+    
+## Vagrant VM definition
+cores: 1
+memory: 512
+private_networks:
+    default:
+    type: 'static'
+    ip: '192.168.216.11'
+    auto_config: true
+--
++
+You can create as many VMs as you want this way. Just make sure they get their own IP address. 
+
+. Start this VM:
++
+[source,bash]
+--
+$ vagrant up agent1
+--
++
+This will also take a while. 
+
+. SSH into your new VM:
++
+[source,bash]
+--
+$ vagrant ssh agent1
+--
+
+. Run puppet in agent1:
++
+[source,bash]
+--
+sudo /opt/puppetlabs/bin/puppet agent -t --server puppet.local
+--
++
+specifying the server as needed, since we don't use profile_puppet which would configure the server in the puppet config.
+
+== Usage
+
+* You can always add modules or update module versions in your control Repo's puppetfile and push it, event to master. It's a per customer pacco only control repo. 
+* *Write all the hieradata you need in the `data/localhieradata/<vmfqdn>.yaml` file*
+
+=== Module Developement
+
+Clone your module into `data/localmodules` (diretory must match module name) and work there. localmodules modules overwrite those in the environment.
+
+== Known Issues
+
+* If you get such an error, just re-run provision / puppet. This is a cache issue inside puppet, we did not yet find a fix for this:
+
+[source,bash]
+--
+Error 500 on SERVER: {"message":"Server Error: Evaluation Error: Error while evaluating a Resource Statement, Could not autoload puppet/type/archive: Could not autoload puppet/provider/archive/wget:
+--

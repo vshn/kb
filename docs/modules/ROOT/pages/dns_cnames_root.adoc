@@ -1,0 +1,18 @@
+= DNS CNAMEs on Root of Domain
+
+NOTE: Applies to customers with a managed DNS service from VSHN
+
+CNAMEs on the root of a zone are technically not possible. For a detailed description of the issue, the post at CloudFlare https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root["CNAME Flattening: RFC-compliant support for CNAME at the root"] has good background information on the topic.
+
+We implemented a similar behaviour and introduced a new unofficial DNS resource record type: *ALIAS.*
+
+To use it, just assign this new record type to the entry:
+
+[source,bash]
+--
+@         IN  ALIAS   cust55673344.herokuapp.com
+--
+
+The rest is handled by our CI job and a cron job which regularly checks and updates this RR type and converts it to A and AAAA records (a single ALIAS record results in one or more A records and zero or more AAAA records).
+
+This mechanism can only be used for the root of a zone ("@"), not for arbitrary names. For the latter, use regular CNAMEs.
