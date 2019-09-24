@@ -1,0 +1,26 @@
+= List Files in Backup
+
+== Problem
+
+I want to have a list of all files in a particular backup
+
+== Step-by-step guide
+
+. Login to the server
+. Find the backup number: see xref:list_available_backups.adoc[List Available Backups]
+. Run the following command:
++
+[source, bash]
+--
+$ sudo burp -a l -b $BACKUPNUMBER
+# or
+$ sudo burp -a L -b $BACKUPNUMBER
+--
+
+[TIP]
+.Some useful hints
+--
+* The zeros in the backup number can be omitted.
+* `-a l`: short list without details
+* `-a L`: long list with all file details
+--

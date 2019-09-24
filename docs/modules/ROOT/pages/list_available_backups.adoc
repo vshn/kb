@@ -1,0 +1,17 @@
+= List Available Backups
+
+== Problem
+
+I want to see a list of all available backups.
+
+== Step-by-step guide
+
+. Login to the server over SSH.
+. Run the following command:
++
+[source,bash]
+--
+$ sudo burp -a l
+--
+
+. You'll get a list of all available backups.

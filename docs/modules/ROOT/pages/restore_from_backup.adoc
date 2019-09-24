@@ -1,0 +1,49 @@
+= Restore Files from Backup
+
+== Problem
+
+I want to restore a file from the backup
+
+== Step-by-step guide
+
+Restoration can only be done from the host the backup data belongs to.
+
+=== Example
+
+. Log into the server requiring the restore
+. Find the number of the backup that the file to restore resides in
++
+[source,bash]
+--
+$ sudo burp -a L -r '<filename>'
+--
+
+. Restore the file to its original location or to /tmp
++
+[source,bash]
+--
+$ sudo burp -a r -b <backup#> -r '<filename>' # restore to original location
+$ sudo burp -a r -b <backup#> -r '<filename>' -d /tmp # restore to /tmp
+--
+
+See below for more examples and information.
+
+== More info
+
+Here are some examples from the man page:
+
+`burp -a r -b 1 -r myregex`:: Restores all the files in backup number 1 that match the regular expression 'myregex' back to their original location.
+
+`burp -a r -b 1 -r myregex -d /tmp/restoredir`:: Restores all the files in backup number 1 that match the regular expression 'myregex' into the directory /tmp/restoredir.
+
+`burp -a r -b 1 -r myregex -d /tmp/restoredir -s 2`:: Restores all the files in backup number 1 that match the regular expression 'myregex' into the directory /tmp/restoredir and strip 2 leading path components.
+
+`burp -a r`:: Restores all the files in the most recent backup to their original location.
+
+To find out in which backup a file resides
+
+[source,bash]
+--
+$ burp -a L -r myregex
+$ burp -a L -d directory
+--

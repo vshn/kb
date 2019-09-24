@@ -1,0 +1,36 @@
+= VCS Repositories with BURP
+
+== Overview
+
+We support to backup remote VCS repositories with BURP. For that we created a pre-backup script that syncs remote repositories locally and adds the repositories to the BURP backup set.
+
+== Backup
+
+The backup of remote repositories is configured with the `profile_repo_backup` puppet module.
+
+The list of repositories to backup can be configured in hiera as follows:
+
+[source,yaml]
+--
+---
+classes:
+    - profile_repo_backup
+ 
+profile_repo_backup::hiera_repo_list:
+  repo1:
+    type: 'hg'
+    url: 'ssh://hg@bitbucket.org/myorg/repo1'
+  repo2:
+    type: 'git'
+    url: 'git@bitbucket.org:myorg/repo2.git
+--
+
+The profile creates a dedicated user (`repository-syncer`) that syncs the repositories locally. The profile expects a hash of repositories to synchronize. If the repositories require an ssh key, the key has to be added manually to the user account.
+
+All repositories are cloned to `/var/lib/repository-backup`.
+
+The script currently supports https://git-scm.com/[Git] and https://www.mercurial-scm.org/[Mercurial].
+
+== Restore
+
+The repositories are cloned locally as bare repositories. This means that the repositories are not checked out in a working directory. The restore process depends on the scenario and may range from a complete repository to restoring single commits. Please consult the documentation of the respective vcs tool for restoring local repositories to a remote location.

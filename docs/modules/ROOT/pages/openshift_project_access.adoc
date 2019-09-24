@@ -1,0 +1,40 @@
+:experimental:
+
+= OpenShift: Manage access to a project
+
+== Grant Access
+
+You must be admin of the project.
+
+=== Via the CLI
+
+[source,bash]
+--
+# syntax: oc policy add-role-to-user <role> <user>
+$ oc policy add-role-to-user admin cust-foo1
+role "admin" added: "cust-foo1"
+--
+
+=== Via the WebGUI
+
+In the left hand menu, select menu:Resources[Membership]. On the "Users" tab, click the btn:[Edit Membership] button on the top right. Input the username into the text field and select a role from the dropdown menu. Click btn:[Add] and then btn:[Done Editing].
+
+[TIP]
+--
+In both cases (CLI and GUI), user names are NOT validated. You can enter whatever you want and OpenShift will not complain about it!
+--
+
+== Revoke Access
+
+=== Via the CLI
+
+[source,bash]
+--
+# syntax oc policy remove-role-from-user <role> <user>
+oc policy remove-role-from-user admin cust-foo1
+role "admin" removed: "cust-foo1"
+--
+
+=== Via the WebGUI
+
+In the left hand menu, select menu:Resources[Membership]. On the "Users" tab, click the btn:[Edit Membership] button on the top right. Remove rolebindings by using the btn:[X] button next to role names. Once you are done, select btn:[Done Editing].
