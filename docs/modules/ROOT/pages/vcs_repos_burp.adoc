@@ -1,8 +1,8 @@
-= VCS Repositories with Burp
+= VCS Repositories with BURP
 
 == Overview
 
-We support to backup remote VCS repositories with Burp. For that we created a pre-backup script that syncs remote repositories locally and adds the repositories to the burp backup set.
+We support to backup remote VCS repositories with BURP. For that we created a pre-backup script that syncs remote repositories locally and adds the repositories to the BURP backup set.
 
 == Backup
 

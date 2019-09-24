@@ -1,0 +1,26 @@
+= PostgreSQL with BURP
+
+== Backup
+
+Puppet code: `::vshn_lib::burp::burp_postgresql`
+
+Dump destination directory: `/var/lib/postgresql-backup`
+
+The postgresql-pre-backup script uses https://www.postgresql.org/docs/9.5/static/app-pgdump.html[`pg_dump`] to export all PostgreSQL data in a consistent data format before every https://burp.grke.org/[BURP] run, i.e. usually once a day. The destination files are named after the database name and are using pg_dump's “custom” format. The global database is named “postgresql”.
+
+Example file list:
+
+[source,bash]
+--
+postgres-web.dump
+postgres-mail.dump
+postgres-postgres.dump
+--
+
+== Restore
+
+Backups can be re-imported using https://www.postgresql.org/docs/9.5/static/app-pgrestore.html[`pg_restore`]. This part is not automated. No example command is given as the actual restore procedure depends on the situation at hand (i.e. partial restore after accidential data removal or a full restore after catastrophic hardware destruction)
+
+== External Links
+
+https://www.postgresql.org/docs/9.5/static/backup.html[Backup and Restore in PostgreSQL documentation]
