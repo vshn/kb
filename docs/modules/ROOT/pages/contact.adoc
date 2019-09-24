@@ -20,12 +20,12 @@ CH-8005 Zürich
 Office Hours: +41 44 545 53 00 +
 Outside Office Hours: +41 44 545 53 73
 
-IMPORTANT: Only customers with a 24/7 Service Level Agreement (SLA 7x24 Reaktiv / SLA 7x24 Proaktiv) are entitled to support services outside office hours.
+WARNING: Only customers with a 24/7 Service Level Agreement (SLA 7x24 Reaktiv / SLA 7x24 Proaktiv) are entitled to support services outside office hours.
 
 E-Mail: info@vshn.ch +
 Support E-Mail: support@vshn.ch
 
-NOTE: Please use support@vshn.ch for support requests or call us. E-Mails to support@vshn.ch are tracked in our Ticket System and help us to improve response time and quality of service.
+NOTE: Please use support@vshn.ch for support requests. E-Mails to support@vshn.ch are tracked in our Ticket System and help us to improve response time and quality of service.
 
 == Emergency contact procedure outside office hours
 
