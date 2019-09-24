@@ -17,13 +17,13 @@ The script iterates over all cores, and for every core:
 
 Notes:
 
-* The pre-backup script is configured and integrated into burp by https://git.vshn.net/vshn-puppet/profile_solr[profile_solr].
+* The pre-backup script is configured and integrated into BURP by https://git.vshn.net/vshn-puppet/profile_solr[profile_solr].
 * Solr supports dumping a core without creating a snapshot, but tests in practice have shown that this doesn't work reliably; dumps can fail non-deterministically, probably due to concurrent updates.
 * The dump status of Solr is poorly implemented. In particular if the dump produced an exception, the dump status won't tell WHICH dump failed, hence the pre-backup script might report an error even if the CURRENT dump actually succeeded. Re-running the pre-backup script MAY eventually resolve this situation.
 
 == Restore
 
-List available backups using the burp command:
+List available backups using BURP:
 
 [source,bash]
 --
