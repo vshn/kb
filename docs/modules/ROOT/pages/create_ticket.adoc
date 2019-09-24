@@ -1,4 +1,5 @@
 = Create Ticket
+:page-partial:
 
 == Problem
 
