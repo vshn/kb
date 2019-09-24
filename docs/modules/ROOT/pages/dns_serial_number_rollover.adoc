@@ -1,0 +1,32 @@
+:stem:
+
+= DNS Serial Number Rollover
+
+NOTE: This applies to customers with a managed DNS service from VSHN.
+
+If you need to lower the DNS serial number, propagation to the slave name servers will not work as expected. The problem is that the slaves only accept zone updates with a higher serial number.
+
+A typical case where you will run into this problem is if you use the `YYYYMMDDXX` serial number format and switch to a Unix timestamp serial number, for example by using our SERIALAUTOUPDATE feature, which uses the Unix timestamp:
+
+[source,bash]
+--
+1 ; SERIALAUTOUPDATE
+--
+
+You can see the problem by checking the SOA records for the zone like this:
+
+[source,bash]
+--
+$ dig +short SOA brokendomain.com @ns0.yourdomain.com
+$ dig +short SOA brokendomain.com @ns1.yourdomain.com
+--
+
+You will see that the hidden master (ns0) has the new, but lower serial number, but the slaves don't.
+
+To fix that, take the old serial number (the one the slaves still use) and calculate:
+
+stem:[new_serial = (old_serial + 2^31 - 1) % 2^32]
+
+(most calculator apps will do this just fine), insert it *without using the SERIALAUTOUPDATE feature* and push the zone change.
+
+As soon as the changes have propagated to all slaves, you can switch to the SERIALAUTOUPDATE feature, and zone updates will work fine.
