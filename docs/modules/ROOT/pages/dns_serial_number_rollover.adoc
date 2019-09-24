@@ -23,10 +23,10 @@ $ dig +short SOA brokendomain.com @ns1.yourdomain.com
 
 You will see that the hidden master (ns0) has the new, but lower serial number, but the slaves don't.
 
-To fix that, take the old serial number (the one the slaves still use) and calculate:
+To fix that, take the old serial number (the one the slaves still use, noted "O" below) and calculate (you can use most calculator apps for this):
 
-stem:[newserial = (oldserial + 2^31 - 1) % 2^32]
+stem:[N = (O + 2^31 - 1) % 2^32]
 
-(most calculator apps will do this just fine), insert it *without using the SERIALAUTOUPDATE feature* and push the zone change.
+Where "N" is the new serial number. Insert it *without using the SERIALAUTOUPDATE feature* and push the zone change.
 
 As soon as the changes have propagated to all slaves, you can switch to the SERIALAUTOUPDATE feature, and zone updates will work fine.
