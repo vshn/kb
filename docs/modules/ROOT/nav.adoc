@@ -3,8 +3,8 @@
 * xref:contact.adoc[Contact VSHN]
 
 * Concepts
-** Backup Concept
-** Monitoring Concept
+** xref:backup_concept.adoc[Backup Concept]
+** xref:monitoring_concept.adoc[Monitoring Concept]
 
 * How-To Articles
 ** xref:create_ticket.adoc[Create a Ticket]

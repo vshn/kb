@@ -1,0 +1,30 @@
+= Monitoring Concept
+
+== Linux Servers
+
+=== Monitoring software
+
+The Monitoring System is built on Icinga2 Cluster/Distributed Monitoring. In our use-case this means every monitored server (the ones we manage via Puppet) are also part of the Icinga Cluster. They are configured as clients connecting to upper zones (the master zone) directly or through an intermediate Icinga2 instance, a satellite.  NRPE (Nagios Remote Plugin Executor) is not used anymore. Clients and satellites get their configuration from the upper zone (the master or the config master zone) validate it locally and then run local checks autonomously. Check results are submitted to the upper zone via the persistent API connection. If the connection is interrupted results and performance data are cached locally and submitted to the upper zone as the connection becomes available again.
+
+Every monitored client exports a default host object via Puppet along with a couple other needed objects to the Config Master where they are written to the "zones.d/<clientname> directory, causing Icinga2 to synchronize the config to the client where it's needed. This makes sure involved Icinga2 instances (master>satellite>client) know about the object and can process check results and commands.
+
+=== Default Checks
+
+* System Availability with Ping
+* Backup Status
+* CPU Usage
+* Disk Usage
+* DNS Resolver availability
+* Icinga Process
+* Network Interface Status
+* Disk IOPs
+* System Load
+* Mail Queue length
+* Memory Usage
+* NTP Time Offset
+* OOM Killer events
+* Number of running Processes
+* Reboot Status
+* SSH Access
+* Number of logged in Users
+* Package Update Status

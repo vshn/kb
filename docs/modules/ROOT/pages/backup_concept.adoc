@@ -1,0 +1,130 @@
+= Backup Concept
+
+== Linux Servers
+
+=== Backup software
+
+The software used to create backups is https://burp.grke.org/[BURP (BackUp and Restore Program)].
+
+The backup runs in multiple phases:
+
+[cols=4*,options="header"]
+|===
+| Phase
+| Client
+| Server
+| Client Impact
+
+| 0
+| Running pre-backup scripts (i.e. dump databases)
+| n/a
+| Degraded disk I/O performance
+
+| 1
+| Filesystem scan and send new stats (files, inodes, sizes) to the server
+| Receive stats from the client
+| Degraded disk I/O performance
+
+| 2
+| Send the changes that the server requests. The work of the client is now finished.
+| Request and receive changes from the client and create an unchanged list and a changed list.
+| Depending on available bandwidth this might have an impact on network I/O performance
+
+| 3
+| n/a
+| Generate the new manifest list for the backup out of the unchanged list and the changed list.
+| n/a
+
+| 4
+| n/a
+| Finish off the backup by jiggling the received data around and putting everything in the correct place.
+| n/a
+|===
+
+=== Backup schedule
+
+Backup runs daily between 22:00 and 07:00.
+
+=== Backup contents
+
+==== Default file set
+
+The following directories are backed up on every server:
+
+[source,bash]
+--
+/boot/grub
+/etc
+/home
+/usr/local
+/var/backups
+/var/lib/dpkg
+/var/log
+/var/spool
+--
+
+==== Additional backup configuration
+
+Depending on the software running on the server additional directories will be backed up. These come from the puppet profiles. In order to get a complete list of files that are backuped, execute the following command:
+
+[source,bash]
+--
+$ egrep -h '(in|ex)clude' /etc/burp/burp* | sort
+--
+
+This will output a list of all directories included and excluded in/from the backup.
+
+==== Pre / Post backup scripts
+
+In order to have consistent backups, its necessary to run some pre-backup tasks. These may include dumping/locking databases, clear logs etc. To find out what jobs will be running, execute the following command:
+
+[source,bash]
+--
+$ ls -l /usr/share/burp/{pre,post}-backup/
+--
+
+This will output a list of all script that are run before and after the backup.
+
+For details on database backups see the following articles:
+
+* xref:restore_mysql_burp.adoc[Restore MySQL/MariaDB with BURP]
+* xref:postgresql_burp.adoc[PostgreSQL with BURP]
+* xref:mongodb_burp.adoc[MongoDB with BURP]
+
+=== Backup retention
+
+We have the following retention policy:
+
+* Keep the last 7 "daily" backups;
+* Keep the last 4 "weekly" backups;
+* This guarantees to keep 7 backups in a row, plus 4 on multiples of 7.
+
+NOTE: Check the detailed description in the http://burp.grke.org/docs/retention.html[BURP documentation].
+
+=== Backup location
+
+In the default configuration managed servers are configured to backup to a off-site server. The following table lists the shared backup servers and their location:
+
+[cols=4*,options="header",format=dsv]
+|===
+Name: Hardware Owner: ISP: Location
+backup1.cloudscale.vshn.net: VSHN AG: cloudscale.ch AG: e-shelter datacenter, Rümlang, Switzerland
+backup4.ix.gtg.ch.vshn.net: VSHN AG: VSHN AG: interxion datacenter, Glattbrugg, Switerland
+backup6.ix.gtg.ch.vshn.net: VSHN AG: VSHN AG: interxion datacenter, Glattbrugg, Switerland
+backup7.ix.gtg.ch.vshn.net: VSHN AG: VSHN AG: interxion datacenter, Glattbrugg, Switerland
+backup8.ix.gtg.ch.vshn.net: VSHN AG: VSHN AG: interxion datacenter, Glattbrugg, Switerland
+backup9.lpg.cloudscale.vshn.net: VSHN AG: cloudscale.ch AG: 	green.ch datacenter, Lupfig, Switzerland
+
+|===
+
+To find out which backup server is used, check the server line in the burp client configuration:
+
+[source,bash]
+--
+$ egrep '^server\s+=' /etc/burp/burp.conf
+--
+
+=== Encryption
+
+* All data is encrypted on the client and the encrypted data is then sent to the backup server
+* The data transport between the client and server is done over a TLS-encrypted connection
