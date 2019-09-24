@@ -1,0 +1,37 @@
+= S3 Backup and Restores
+
+VSHN offers a simple S3 backup solution which syncs all objects from a bucket or all buckets from an API user to a VSHN server where it is then included in our standard BURP backup.
+
+The Backup server is
+
+. A VSHN shared customer server with a shared encrypted file systems; or
+. A customer dedicated s3 backup VM.
+
+== Bucket Versioning
+
+In addition to this backup, the customer should use https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html[S3 Bucket Versioning] for single object restores, which has to be *manually activated for each bucket*. This is because S3 remote backups are mainly for disaster recovery or when for example a whole bucket was deleted by accident, etc.
+
+Tools like https://cyberduck.io/[cyberduck.io] can be used to easily see the previous versions of objects. Of course old version can be managed via S3 API calls.
+
+== VSHN remote backup
+
+The sync runs as a pre-backup job before the *daily* (after 22:00) backup. It iterates over all configured customer S3 buckets or API users and syncs alls objects / buckets to a local storage.
+
+=== Retention
+
+* 7 daily backups
+* 4 weekly backups
+
+=== Restore
+
+For the customer shared solution there is no self-service for a customer to restore objects. Restores are done by VSHN. Please create a ticket in https://control.vshn.net/[the Control Panel] and tell us the bucket and which objects from what date to restore. We can restore back to the bucket or copy the objects as files to a server, a share, etc. 
+
+=== Custom Options
+
+The customer shared solution is not tuneable (backup frequency, retention, etc.) on a per customer basis. If you need this, a customer dedicated VM could make sense here. 
+
+The only thing that is configurable is which API users or buckets we backup. If you need this changed, please create a ticket.
+
+=== Limitations
+
+The customer has to provide a Access and Secret Key for an API user which has at least READ access to the whole bucket that should be backed up. If the customer changes the credentials, backups will fail until we correct the credentials. 
