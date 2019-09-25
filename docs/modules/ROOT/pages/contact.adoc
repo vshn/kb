@@ -1,5 +1,3 @@
-:page-partial:
-
 = Contact VSHN
 
 == Office hours

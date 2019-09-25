@@ -1,5 +1,3 @@
-:toc:
-
 = API: DNS
 
 The DNS API is used to manage zones, which are served by the VSHN DNS infrastructure.

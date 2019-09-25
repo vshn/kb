@@ -1,5 +1,3 @@
-:experimental:
-
 = OpenShift: Manage access to a project
 
 == Grant Access

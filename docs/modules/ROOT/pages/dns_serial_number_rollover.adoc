@@ -1,5 +1,3 @@
-:stem:
-
 = DNS Serial Number Rollover
 
 [NOTE]
