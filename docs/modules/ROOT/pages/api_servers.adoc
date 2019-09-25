@@ -1,0 +1,290 @@
+= API: Servers
+
+The Servers API is used to manage server definitions, which are used as ENC data by our Puppet infrastructure ("other end" of the ENC API), and to get status information about a server.
+
+Please make sure to read the xref:api_basics.adoc[API Basics] document before starting.
+
+IMPORTANT: This API previously had a different endpoint ('server-definitions' instead of 'servers'). The old endpoint still works, but does not get new functionality and will eventually be removed.
+
+Base URL:: https://control.vshn.net/api/servers/1/
+
+
+== Fields: Server
+
+[cols="4*",options="header"]
+|===
+| Name
+| Required
+| Description
+| Example Values
+
+| fqdn
+| yes
+| Fully qualified domain name
+| "web1.qq1soft.com"
+
+| environment
+| yes
+| Puppet environment, set of Puppet module versions
+| "QQ1Prod"
+
+| project
+| yes
+| A project name
+| "website", "developertools"
+
+| role
+| yes
+| The server's role
+| "app", "db", "reverseproxy"
+
+| location
+| yes
+| The server's location as defined in our hiera data (a set of datacenter specific parameters, e.g. name server IPs or which backup server to use)
+| "cloudscale", "ec2"
+
+| region
+| no
+| CITY.CC, city code and country code of physical server location (a set of region specific parameters)
+| "zrh.ch"
+
+| zone
+| no
+| The server's network zone
+| "internal"
+
+| stage
+| no
+| Production level of the project/server
+| "prod", "stage", "dev"
+
+| modDate
+| generated
+| Unix timestamp (ms) of last change. Type *long* (resp. *double* in JSON)
+| 1477493084029
+
+| modUser
+| generated
+| ID of user who did the last change
+| "qq-jdoe1", "john.doe"
+|===
+
+
+== Fields: Facts
+
+There is no fixed list of which facts are available for a server. The following table lists a few common examples.
+
+The value is currently always a String, even for structured facts.
+
+[cols="4*",options="header"]
+|===
+| Name
+| Required
+| Description
+| Example Values
+
+| processorcount
+| no
+| Number of CPU cores in the system
+| "1", "2"
+
+| lsbdistcodename
+| no
+| Code name of the Linux distribution
+| "xenial"
+
+| <String>
+| no
+| Name is usually self-explanatory
+| <String>
+|===
+
+
+
+== Methods
+
+
+=== `GET /`
+
+List all customer IDs you have access to.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/servers/1/?accessToken=[...]
+awesomeengineering
+exampleinc
+qq1soft
+vshn
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error 
+
+
+
+
+=== `GET /{customerId}/`
+
+List the fully qualified domain names of all servers of a customer.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/servers/1/qq1soft/?accessToken=[...]
+db0.qq1soft.com
+db1.qq1soft.com
+db2.qq1soft.com
+jira.dev.qq1soft.com
+web1.qq1soft.com
+web2.qq1soft.com
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: Customer ID not found
+
+
+
+
+
+
+
+
+
+=== `GET /{customerId}/{fqdn}`
+
+Get a server's definition as JSON.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/servers/1/qq1soft/jira.dev.qq1soft.com?accessToken=[...]
+--
+
+[source,json]
+.Response
+--
+{
+  "fqdn" : "jira.dev.qq1soft.com",
+  "customer" : "qq1soft",
+  "environment" : "QQ1Prod",
+  "project" : "dev",
+  "role" : "jira",
+  "location" : "cloudscale",
+  "stage" : "prod",
+  "modDate" : 1477493084029,
+  "modUser" : "qq-jdoe1"
+}
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: Customer ID or fqdn not found 
+
+
+
+
+
+
+=== `POST /{customerId}/`
+
+Create a new server definition. JSON payload.
+
+[source,bash]
+.Example
+--
+$ curl -X POST -d '{"fqdn": "wiki.dev.qq1soft.com", "customer": "qq1soft", "environment": "QQ1Prod", "project": "dev", "role": "confluence", "location": "cloudscale", "stage": "prod"}' https://control.vshn.net/api/servers/1/qq1soft/?accessToken=[...]
+--
+
+==== Status codes
+
+201:: Created
+400:: Input validation error
+403:: Authentication error
+404:: Customer ID not found
+
+
+
+
+=== PUT `/{customerId}/{fqdn}`
+
+Update an existing server definition. JSON payload. Which server to update is determined by the URL.
+
+IMPORTANT: The JSON must contain all fields that aren't null, including those that remain the same (except fqdn, modDate modUser, which will be ignored).
+
+[source,bash]
+.Example
+--
+$ curl -X PUT -d '{"customer": "qq1soft", "environment": "QQ1Dev", "project": "dev", "role": "confluence", "location": "cloudscale", "stage": "prod"}' https://control.vshn.net/api/servers/1/qq1soft/wiki.dev.qq1soft.com?accessToken=[...]
+--
+
+==== Status codes
+
+200:: OK
+400:: Input validation error
+403:: Authentication error
+404:: Customer ID or `fqdn` not found
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== `DELETE /{customerId}/{fqdn}`
+
+Delete an existing server definition.
+
+[source,bash]
+.Example
+--
+$ curl -X DELETE https://control.vshn.net/api/servers/1/qq1soft/wiki.dev.qq1soft.com?accessToken=[...]
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: Customer ID or `fqdn` not found
+
+
+
+
+=== `GET /{customerId}/{fqdn}/facts`
+
+Get all facts of a server.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/servers/1/qq1soft/jira.dev.qq1soft.com/facts?accessToken=[...]
+--
+
+[source,json]
+.Response
+--
+{
+  "lsbdistcodename" : "xenial",
+  "processorcount" : "2",
+  [...]
+}
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: Customer ID or `fqdn` not found
