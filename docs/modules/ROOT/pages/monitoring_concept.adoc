@@ -1,8 +1,8 @@
-= Monitoring Concept
+= Monitoring
 
 == Linux Servers
 
-=== Monitoring software
+=== Software
 
 The Monitoring System is built on Icinga2 Cluster/Distributed Monitoring. In our use-case this means every monitored server (the ones we manage via Puppet) are also part of the Icinga Cluster. They are configured as clients connecting to upper zones (the master zone) directly or through an intermediate Icinga2 instance, a satellite.  NRPE (Nagios Remote Plugin Executor) is not used anymore. Clients and satellites get their configuration from the upper zone (the master or the config master zone) validate it locally and then run local checks autonomously. Check results are submitted to the upper zone via the persistent API connection. If the connection is interrupted results and performance data are cached locally and submitted to the upper zone as the connection becomes available again.
 

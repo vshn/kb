@@ -1,8 +1,8 @@
-= Backup Concept
+= Backup
 
-== Linux Servers
+== Linux Servers Backup
 
-=== Backup software
+=== Software
 
 The software used to create backups is https://burp.grke.org/[BURP (BackUp and Restore Program)].
 
@@ -41,11 +41,11 @@ The backup runs in multiple phases:
 | n/a
 |===
 
-=== Backup schedule
+=== Schedule
 
 Backup runs daily between 22:00 and 07:00.
 
-=== Backup contents
+=== Contents
 
 ==== Default file set
 
@@ -91,7 +91,7 @@ For details on database backups see the following articles:
 * xref:postgresql_burp.adoc[PostgreSQL with BURP]
 * xref:mongodb_burp.adoc[MongoDB with BURP]
 
-=== Backup retention
+=== Retention
 
 We have the following retention policy:
 
@@ -101,7 +101,7 @@ We have the following retention policy:
 
 NOTE: Check the detailed description in the http://burp.grke.org/docs/retention.html[BURP documentation].
 
-=== Backup location
+=== Location
 
 In the default configuration managed servers are configured to backup to a off-site server. The following table lists the shared backup servers and their location:
 
