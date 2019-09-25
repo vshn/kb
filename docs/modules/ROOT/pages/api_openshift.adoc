@@ -1,0 +1,293 @@
+= API: OpenShift
+
+The OpenShift API is used to manage OpenShift clusters, such as creating and deleting projects.
+
+Please make sure to read the xref:api_basics.adoc[API Basics] document before starting.
+
+Base URL:: https://control.vshn.net/api/openshift/1/
+
+== Types: Project
+
+[cols="5*",options="header"]
+|===
+| Field Name
+| Always present (read)
+| Required (write)
+| Description
+| Example Values
+
+| id
+| yes
+| no
+| ID of the project. "name" in OpenShift API terminology
+| "xmlp-erp1"
+
+| name
+| yes
+| yes
+| User-friendly name of the project
+| "xmpl-ERP 1"
+
+| requesterUid
+| no
+| no
+| User ID of the user who requested the project
+| "xmpl-jdoe1"
+
+| nodeSelector
+| no
+| no
+| Node selector to ensure that the project runs on the correct node
+| "customer=exampleinc"
+
+| productId
+| no
+| no
+| ID of the chosen product. An "unlimited" product will be used when creating a project without specified `productId`
+| "small:v1"
+
+| description
+| no
+| no
+| User-friendly description of the project
+| "Example.com's Enterprise Resource Planning System"
+
+| customerId
+| no
+| no/yes
+| The customer who owns the project. Must be specified on creation if the user creating the project can manage more than one customer. You can get all the customerIds you have access to from the API: Servers#GET/
+| "exampleinc"
+
+| type
+| yes
+| no
+| Type of the project
+| SYSTEM, DEMO, CUSTOMER
+
+| url
+| yes
+| no
+| User-friendly URL to access the project on the OpenShift instance
+| "https://console.appuio.ch/console/project/xmlp-erp1"
+
+| created
+| yes
+| no
+| Unix timestamp in ms when the project was created
+| 1498131416000
+
+| adminUids
+| no
+| yes
+| Array of user IDs with administrator access to the project. Must contain at least one user when creating a project
+| [ "xmlp-jdoe1", "xmpl-fhanks1" ]
+
+| editorUids
+| no
+| no
+| Array of user IDs with edit access to the project
+| [ "xmlp-bnorris2" ]
+
+| viewerUids
+| no
+| no
+| Array of user IDs with view access to the project
+| [ "hank.manning", "xmlp-sseger1" ]
+
+| billingCycle
+| no
+| no
+| Billing cycle of the project. Not all values can be choosen by all users
+| MONTHLY, YEARLY, NONE
+
+| quotaMemory
+| no
+| no
+| Memory quota in MiB. When creating a project with a flexible product this is used to choose the project size.
+| 1536
+
+| quotaCpu
+| no
+| no
+| CPU quota in millicores. When creating a project with a flexible product this is used to choose the project size.
+| 1700
+|===
+
+== Methods
+
+=== `GET /`
+
+List all OpenShift IDs you have access to. 
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/openshift/1/?accessToken=[...]
+appuio public
+appuio lab
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+
+
+
+
+
+=== `GET /{openShiftId}/`
+
+List all sub-entities of the OpenShift project.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/openshift/1/appuio%20lab/?accessToken=[...]
+nodes
+projects
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `openShiftId` not found
+
+
+
+
+
+=== `GET /{openShiftId}/nodes/`
+
+List all nodes of the OpenShift that you have access to.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/openshift/1/appuio%20lab/nodes/?accessToken=[...]
+node1.appuio.ch
+node2.appuio.ch
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `openShiftId` not found
+
+
+
+
+
+
+
+=== `GET /{openShiftId}/projects/`
+
+List all projects on the given OpenShift that you have access to.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/openshift/1/appuio%20lab/projects/?accessToken=[...]
+xmpl-erp1
+xmpl-prod
+xmpl-stage
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `openShiftId` not found
+
+
+
+
+
+
+
+
+=== `GET /{openShiftId}/projects/{projectId}`
+
+Get an OpenShift project. Returns a JSON object of type Project.
+
+[source,bash]
+.Example
+--
+$ curl https://control.vshn.net/api/openshift/1/appuio%20lab/projects/xmpl-erp1?accessToken=[...]
+--
+
+[source,json]
+.Response
+--
+{
+  "id": "xmpl-erp1",
+  "name": "xmpl-ERP 1",
+  "adminUids": [
+    "xmpl-jdoe1"
+  ],
+  "requesterUid": "xmpl-jdoe1",
+  "type": "CUSTOMER",
+  "url": "https://console.appuio.ch/console/project/xmpl-erp1",
+  "created": 1498131416000,
+  "nodeSelector": "customer=exampleinc",
+  "productId": "unlimited:v1",
+  "customerId": "exampleinc"
+}
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `openShiftId` or `projectId` not found
+
+
+
+
+
+
+
+
+
+=== `POST /{openShiftId}/projects/`
+
+Create a new OpenShift project. Send a JSON object of type Project in the request body.
+
+NOTE: OpenShift will create the project asynchronously in the background. You may not be able to see it immediately, or it may not immediately have all the correct settings.
+
+[source,bash]
+.Example
+--
+$ curl -X POST -d '{"name":"ERP 1","adminUids":["xmpl-jdoe1"],"productId":"unlimited:v1","customerId":"example"}' https://control.vshn.net/api/openshift/1/appuio%20lab/projects/?accessToken=[...]
+--
+
+==== Status codes
+
+201:: Created (includes URL of the created project in the 'Location' header)
+400:: Input validation error
+403:: Authentication error
+404:: `openShiftId` not found
+
+
+
+
+
+=== `DELETE /{openShiftId}/projects/{projectId}`
+
+Delete an OpenShift project.
+
+NOTE: OpenShift will delete the project asynchronously in the background. You may be able to see it for a while after deleting.
+
+[source,bash]
+.Example
+--
+$ curl -X DELETE https://control.vshn.net/api/openshift/1/appuio%20lab/projects/xmpl-erp1?accessToken=[...]
+--
+
+==== Status codes
+
+204:: No content
+403:: Authentication error
+404:: `openShiftId` or `projectId` not found
