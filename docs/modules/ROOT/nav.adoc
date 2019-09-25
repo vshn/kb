@@ -25,6 +25,6 @@
 
 * VSHN Control APIs
 ** xref:api_basics.adoc[Basics]
-** DNS
+** xref:api_dns.adoc[DNS]
 ** OpenShift
 ** Servers

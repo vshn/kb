@@ -1,0 +1,373 @@
+:toc:
+
+= API: DNS
+
+The DNS API is used to manage zones, which are served by the VSHN DNS infrastructure.
+
+Please make sure to read the xref:api_basics.adoc[API Basics] document before starting.
+
+WARNING: The current implementation cannot catch all possible illegal zone modifications. If you perform an incorrect operation, the CI job deploying the zone may fail. More input validation may be added in the future.
+
+Base URL:: https://control.vshn.net/api/dns/1/
+
+== Fields: Record
+
+
+[cols="5*",options="header"]
+|===
+| Name
+| Type
+| Required
+| Description
+| Example Values
+
+| name
+| String
+| yes, except update
+| Canonical DNS name with a trailing '.'
+| "www.example.com."
+
+| ttl
+| String
+| no
+| This record's TTL.
+| "60"
+
+| cls
+| String
+| no
+| This record's class. Only allowed value is "IN".
+| "IN"
+
+
+| type
+| String
+| yes, except update
+| This record's type. All types per bind zone file spec, plus "ALIAS"
+| "CNAME"
+
+| data
+| String[]
+| yes
+| Data of this record.
+| ["129.168.0.5"]
+
+["v=spf1 redirect=spf.example.com", "~all"]
+
+| dataComments
+| String[]
+| no
+| Comments for data of this record. Must have same length as data array, padded with null.
+| [null, "We'll change this to -all later"]
+
+| comment
+| String
+| no
+| Comment for the entire record
+| "IP assigned by customer"
+|===
+
+
+
+
+== Methods
+
+=== `GET /`
+
+List all zones you have access to.
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/
+example.com
+example.net
+example-test.co.uk
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+
+
+
+
+
+
+=== `GET /{zoneId}`
+
+Get the full zone in bind format.
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com
+$ORIGIN example.com.
+$TTL 3600
+@                         IN       SOA    (
+                                            ns1.example.com.
+                                            dnsadmin.example.com.
+                                            1 ; SERIALAUTOUPDATE
+                                            3600
+                                            600
+                                            1209600
+                                            3600
+                                          )
+;
+;  Nameserver
+;
+@                         IN       NS     ns1.example.com.
+@                         IN       NS     ns2.example.net.
+@                         IN       ALIAS  lb1.example.com.
+www                       IN       CNAME  lb1.example.com.
+lb1                       IN       A      1.2.3.4
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId` does not exist
+
+
+
+
+
+
+=== `GET /{zoneId}/`
+
+Get a list of record types contained in the zone.
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/
+A
+ALIAS
+CNAME
+NS
+SOA
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId` does not exist
+
+
+
+
+
+=== `GET /{zoneId}/{type}/`
+
+Get a list of record names of the given type.
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/CNAME/
+www.example.com.
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId` or `type` do not exist
+
+
+
+
+
+=== `GET /{zoneId}/{type}/{name}`
+
+Get the specified records in JSON format. This returns a list of records, because there can be more than one record per type/name combination (although in most cases there will be only one).
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/CNAME/www.example.com.
+--
+
+[source,json]
+.Response
+--
+[ {
+  "name" : "www.example.com.",
+  "cls" : "IN",
+  "type" : "A",
+  "data" : [ "1.2.3.4" ]
+} ]
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId`, `type` or `name` do not exist
+
+
+
+
+
+
+
+=== `GET /{zoneId}/{type}/{name}/`
+
+Get the list of records that match this type and name.
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/NS/example.com./
+0
+1
+2
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId`, `type` or `name` do not exist
+
+
+
+
+
+
+
+
+
+
+
+
+=== `GET /{zoneId}/{type}/{name}/{nr}`
+
+Get a single record.
+
+[source,bash]
+.Example
+--
+$ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/NS/example.com./1
+--
+
+[source,json]
+.Response
+--
+{
+  "name" : "example.com.",
+  "cls" : "IN",
+  "type" : "NS",
+  "data" : [ "ns1.example.com." ]
+} 
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId`, `type`, `name` or `nr` do not exist
+
+
+
+
+
+
+
+
+
+=== `POST /{zoneId}/`
+
+Create new record. Send data as JSON in the request body. The portal will automatically put the new record in a suitable origin, or create a new origin if required.
+
+[source,bash]
+.Example
+--
+$ curl -X POST -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/ -d '{"name":"www2.example.com.", "type":"A", "data":["5.6.7.8"]}'
+--
+
+==== Status codes
+
+201:: Created
+400:: Input validation error
+403:: Authentication error
+404:: `zoneId` does not exist
+
+
+
+
+
+
+
+
+
+
+
+=== `PUT /{zoneId}/{type}/{name}/{nr}`
+
+Update an existing record. Send data as JSON in the request body. You can't change the type or name of a record; these values will be taken from the URL, and they will be ignored if they are present in the request body.
+
+[source,bash]
+.Example
+--
+$ curl -X PUT -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/A/www2.example.com./0 -d '{"data":["11.22.33.44"]}'
+--
+
+==== Status codes
+
+200:: OK
+400:: Input validation error
+403:: Authentication error
+404:: `zoneId`, `type`, `name` or `nr` do not exist
+
+
+
+
+
+
+
+
+
+=== `DELETE /{zoneId}/{type}/{name}/{nr}`
+
+Delete an existing record.
+
+[source,bash]
+.Example
+--
+$ curl -X DELETE -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/A/www2.example.com./0
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId`, `type`, `name` or `nr` do not exist
+
+
+
+
+
+=== `DELETE /{zoneId}/_/{name}`
+
+Clean up a host name. This removes:
+
+* All records of the given name, regardless of type
+* CNAMEs pointing to that name
+
+This is useful when decommissioning a server. More features may be added in the future.
+
+[source,bash]
+.Example
+--
+$ curl -X DELETE -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/_/www2.example.com.
+--
+
+==== Status codes
+
+200:: OK
+403:: Authentication error
+404:: `zoneId` or `name` do not exist
