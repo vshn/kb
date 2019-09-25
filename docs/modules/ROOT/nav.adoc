@@ -24,7 +24,7 @@
 ** xref:view_backup_log_file.adoc[View Backup Log File]
 
 * VSHN Control APIs
-** Basics
+** xref:api_basics.adoc[Basics]
 ** DNS
 ** OpenShift
 ** Servers

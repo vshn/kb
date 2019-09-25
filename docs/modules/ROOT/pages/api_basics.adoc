@@ -1,0 +1,57 @@
+:experimental:
+
+= API: Basics
+
+== Authentication
+
+You need an access token to use this API. You can create this token in the menu:Customer Portal[Administration > API Tokens] https://control.vshn.net/tokens[section of the Control Panel].
+
+The access token must be added to each request via the `X-AccessToken` HTTP header or `accessToken` query parameter. You must also configure your *client IP addresses*. 
+
+With that token, you will be able to access the same data as you can see in the web interface. The token is specific to you (the user who created it) and inherit your permissions. The token is equivalent to logging in on the web interface, but for the API.
+
+== Basic Design
+
+=== Multiple APIs, versioning
+
+The customer portal provides multiple APIs. An access token only works on one API.
+
+Each API is versioned independently by adding a single integer version number at the end of the base URL, starting with 1. The *Base URL* as specified in the documentation always *includes the current version number*.
+
+Versions older than the current one may still work, but are unsupported. In general we keep older versions available until all users have migrated to later versions.
+
+Additional functionality may be added at any time without increasing the version number. *New subresources or JSON fields may appear at any time, without version number change.* The client application must be able to handle this.
+
+Bug fixing may also happen within the same version number. *Do not rely on broken behaviour.*
+
+=== Directory listings vs. "file" content
+
+The API distinguishes between directory listings and "file" content.
+
+Directory listings:: Think `ls` on a Unix system. These return a newline-separated list of subresources. A directory listing URL *always ends with a slash*. The API will not magically add slashes as some web servers do. Directory listings do not contain the data of the resources contained within the directory. 
+
+File content:: Think `cat` on a Unix system. This returns UTF-8 encoded JSON data. A file name will *never ends with a slash*.
+
+WARNING: If you add *too many or too few slashes* at the end of the URL, *you will get a 404*.
+
+=== Methods and paths
+
+GET:: Following the semantics explained in https://tools.ietf.org/html/rfc2616#section-9.3[RFC 2616 (point 9.3)]
+
+POST:: Creates a new resource ("file"). You POST JSON data to the directory that contains the resource, not to the resulting path of the resource.
+
+PUT:: Updates a resource ("file"). You PUT new JSON data to the file resource itself.
+
+DELETE:: Removes a resource ("file").
+
+=== Content types
+
+Directory listings return `text/plain`, "files" return `application/json`. The encoding is always UTF-8.
+
+When you *POST* or *PUT* data, you must send UTF-8 encoded JSON data, unless stated otherwise. The API will ignore the encoding header (mostly to simplify testing with tools like curl), but you should nevertheless always use the content type `application/json`.
+
+=== Input Validation Errors
+
+If you are sending *invalid data* in POST or PUT requests (e.g. JSON that can't be parsed, missing values, values that must be unique but aren't), the API responds with a response code *400 'Bad Request'*. The body contains a JSON object with all the errors. The *keys* are the *names of the fields* with invalid data, the *values* are *textual error messages*.
+
+NOTE: If the server can't parse the JSON at all, it will complain that all the values are missing.
