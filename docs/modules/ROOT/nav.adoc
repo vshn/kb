@@ -27,4 +27,4 @@
 ** xref:api_basics.adoc[Basics]
 ** xref:api_dns.adoc[DNS]
 ** xref:api_openshift.adoc[OpenShift]
-** Servers
+** xref:api_servers.adoc[Servers]
