@@ -4,7 +4,7 @@ The Servers API is used to manage server definitions, which are used as ENC data
 
 Please make sure to read the xref:api_basics.adoc[API Basics] document before starting.
 
-IMPORTANT: This API previously had a different endpoint ('server-definitions' instead of 'servers'). The old endpoint still works, but does not get new functionality and will eventually be removed.
+IMPORTANT: This API previously had a different endpoint ('server-definitions' instead of 'servers'). The old endpoint still works, but doesn't get new functionality and will eventually be removed.
 
 Base URL:: https://control.vshn.net/api/servers/1/
 
@@ -21,42 +21,42 @@ Base URL:: https://control.vshn.net/api/servers/1/
 | fqdn
 | yes
 | Fully qualified domain name
-| "web1.qq1soft.com"
+| `"web1.qq1soft.com"`
 
 | environment
 | yes
 | Puppet environment, set of Puppet module versions
-| "QQ1Prod"
+| `"QQ1Prod"`
 
 | project
 | yes
 | A project name
-| "website", "developertools"
+| `"website", "developertools"`
 
 | role
 | yes
 | The server's role
-| "app", "db", "reverseproxy"
+| `"app", "db", "reverseproxy"`
 
 | location
 | yes
-| The server's location as defined in our hiera data (a set of datacenter specific parameters, e.g. name server IPs or which backup server to use)
-| "cloudscale", "ec2"
+| The server's location as defined in our hiera data (a set of datacenter specific parameters, for example, name server IPs or which backup server to use)
+| `"cloudscale", "ec2"`
 
 | region
 | no
 | CITY.CC, city code and country code of physical server location (a set of region specific parameters)
-| "zrh.ch"
+| `"zrh.ch"`
 
 | zone
 | no
 | The server's network zone
-| "internal"
+| `"internal"`
 
 | stage
 | no
 | Production level of the project/server
-| "prod", "stage", "dev"
+| `"prod", "stage", "dev"`
 
 | modDate
 | generated
@@ -66,7 +66,7 @@ Base URL:: https://control.vshn.net/api/servers/1/
 | modUser
 | generated
 | ID of user who did the last change
-| "qq-jdoe1", "john.doe"
+| `"qq-jdoe1", "john.doe"`
 |===
 
 
@@ -86,7 +86,7 @@ The value is currently always a String, even for structured facts.
 | processorcount
 | no
 | Number of CPU cores in the system
-| "1", "2"
+| `"1", "2"`
 
 | lsbdistcodename
 | no

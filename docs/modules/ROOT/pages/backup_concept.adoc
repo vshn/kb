@@ -16,7 +16,7 @@ The backup runs in multiple phases:
 | Client Impact
 
 | 0
-| Running pre-backup scripts (i.e. dump databases)
+| Running pre-backup scripts (for example, dump databases)
 | n/a
 | Degraded disk I/O performance
 
@@ -93,7 +93,7 @@ For details on database backups see the following articles:
 
 === Retention
 
-We have the following retention policy:
+We use the following retention policy:
 
 * Keep the last 7 "daily" backups;
 * Keep the last 4 "weekly" backups;

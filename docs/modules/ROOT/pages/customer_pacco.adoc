@@ -1,8 +1,8 @@
 = Customer Pacco
 
-This is a special how-to for customers which want do do puppet module / profile development. The idea is to need access to as few as possible puppet modules in our gitlab, meaning that the VM will not get most of the VSHN basic puppet modules, mainly just the customer profile / the profile that wants to be developed on and it's dependencies.
+This is a special how-to for customers which want do do puppet module / profile development. The idea is to need access to as few as possible puppet modules in our gitlab, meaning that the VM won't get most of the VSHN basic puppet modules, mainly just the customer profile / the profile that wants to be developed on and it's dependencies.
 
-There are of course things like not purging the vagrant user, packagemanger, etc. which we cannot live without. 
+There are of course things like not purging the vagrant user, packagemanger, etc. which we can't live without.
 
 == Setup
 
@@ -17,17 +17,17 @@ There are of course things like not purging the vagrant user, packagemanger, etc
 $ git clone git@git.vshn.net:vshn/pacco.git
 --
 +
-You can clone this to any directory you want. The folder does not need to be called "pacco".
+You can clone this to any directory you want. The folder doesn't need to be called "pacco."
 
 . Create a SSH RSA key WITHOUT a passphrase, and add it in GitLab to your user. Keep this key safe and personal.
-** *Do not share the created puppet master VM*, as this key is copied into that VM on provision.
-** Do not use your normal SSH key with passphrase removed. You need to be able to remove this key from GitLab at anytime. 
+** *Don't share the created puppet master VM*, as this key is copied into that VM on provision.
+** Don't use your normal SSH key with passphrase removed. You need to be able to remove this key from GitLab at anytime.
 
 . Configure the vagrant environment in the `.vagrantuser` file.
 +
 *From here on all command examples are executed inside the pacco folder where you cloned pacco.*
 +
-[source,bash]    
+[source,bash]
 ..vagrantuser
 --
 projectname: 'pacco' # change this, if you use multiple copies of pacco
@@ -39,7 +39,7 @@ r10k_deploykey: |
     -----END RSA PRIVATE KEY-----
 --
 +
-We use a per customer r10k control repo here including only public accessible and needed modules from VSHN. 
+We use a per customer r10k control repo here including only public accessible and needed modules from VSHN.
 ** Currently there is no automatic way to keep module version up to date in this control repository.
 
 . Clone the special minimal hieradata (VSHN needs to give a customer access to this repo)
@@ -57,7 +57,7 @@ $ git clone git@git.vshn.net:vshn-puppet/pacco_basic_hieradata.git hieradata
 $ vagrant up master
 --
 +
-This will take a while. Red messages in vagrant output are kind of normal – errors are not, though. 
+This will take a while. Red messages in vagrant output are kind of normal–errors aren't, though.
 
 . Clone the puppet environment. It's a branch in the customer pacco-r10k control repo and should be named `<Customer>Pacco`
 +
@@ -70,7 +70,7 @@ TIP: This is a SSH remote execute into the master VM and there an execution of d
 
 . Define your first agent VM. The definition of the VM goes into `data/vmdefinitions`.
 +
-*Do not forget to set the correct environment*, the one from step 8.
+*Don't forget to set the correct environment*, the one from step 8.
 +
 [source,bash]
 .data/vmdefinitions/agent1.vagrant.dev.yaml
@@ -84,7 +84,7 @@ parameters:
     role: 'vagrant'
     zone: puppet4
     location: 'vagrant'
-    
+
 ## Vagrant VM definition
 cores: 1
 memory: 512
@@ -95,7 +95,7 @@ private_networks:
     auto_config: true
 --
 +
-You can create as many VMs as you want this way. Just make sure they get their own IP address. 
+You can create as many VMs as you want this way. Just make sure they get their own IP address.
 
 . Start this VM:
 +
@@ -104,7 +104,7 @@ You can create as many VMs as you want this way. Just make sure they get their o
 $ vagrant up agent1
 --
 +
-This will also take a while. 
+This will also take a while.
 
 . SSH into your new VM:
 +
@@ -124,7 +124,7 @@ specifying the server as needed, since we don't use profile_puppet which would c
 
 == Usage
 
-* You can always add modules or update module versions in your control Repo's puppetfile and push it, event to master. It's a per customer pacco only control repo. 
+* You can always add modules or update module versions in your control Repo's puppetfile and push it, event to master. It's a per customer pacco only control repo.
 * *Write all the hieradata you need in the `data/localhieradata/<vmfqdn>.yaml` file*
 
 === Module Developement
@@ -133,7 +133,7 @@ Clone your module into `data/localmodules` (diretory must match module name) and
 
 == Known Issues
 
-* If you get such an error, just re-run provision / puppet. This is a cache issue inside puppet, we did not yet find a fix for this:
+* If you get such an error, just re-run provision / puppet. This is a cache issue inside puppet, we didn't yet find a fix for this:
 
 [source,bash]
 --

@@ -80,19 +80,19 @@ Base URL:: https://control.vshn.net/api/openshift/1/
 | no
 | yes
 | Array of user IDs with administrator access to the project. Must contain at least one user when creating a project
-| [ "xmlp-jdoe1", "xmpl-fhanks1" ]
+| `[ "xmlp-jdoe1", "xmpl-fhanks1" ]`
 
 | editorUids
 | no
 | no
 | Array of user IDs with edit access to the project
-| [ "xmlp-bnorris2" ]
+| `[ "xmlp-bnorris2" ]`
 
 | viewerUids
 | no
 | no
 | Array of user IDs with view access to the project
-| [ "hank.manning", "xmlp-sseger1" ]
+| `[ "hank.manning", "xmlp-sseger1" ]`
 
 | billingCycle
 | no

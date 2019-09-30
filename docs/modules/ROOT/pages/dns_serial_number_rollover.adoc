@@ -6,7 +6,7 @@
 This applies only to customers with a managed DNS service from VSHN.
 --
 
-If you need to lower the DNS serial number, propagation to the slave name servers will not work as expected. The problem is that the slaves only accept zone updates with a higher serial number.
+If you need to lower the DNS serial number, propagation to the slave name servers won't work as expected. The problem is that the slaves only accept zone updates with a higher serial number.
 
 A typical case where you will run into this problem is if you use the `YYYYMMDDXX` serial number format and switch to a Unix timestamp serial number, for example by using our SERIALAUTOUPDATE feature, which uses the Unix timestamp:
 
@@ -27,7 +27,7 @@ You will see that the hidden master (ns0) has the new, but lower serial number, 
 
 To fix that, take the old serial number (the one the slaves still use, noted "O" below) and calculate (you can use most calculator apps for this):
 
-stem:[N = (O + 2^31 - 1) % 2^32]
+stem:[N = (O + 2^31–1) % 2^32]
 
 Where "N" is the new serial number. Insert it *without using the SERIALAUTOUPDATE feature* and push the zone change.
 
