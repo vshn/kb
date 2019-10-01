@@ -15,7 +15,7 @@ The list of repositories to backup can be configured in hiera as follows:
 ---
 classes:
     - profile_repo_backup
- 
+
 profile_repo_backup::hiera_repo_list:
   repo1:
     type: 'hg'
@@ -33,4 +33,4 @@ The script currently supports https://git-scm.com/[Git] and https://www.mercuria
 
 == Restore
 
-The repositories are cloned locally as bare repositories. This means that the repositories are not checked out in a working directory. The restore process depends on the scenario and may range from a complete repository to restoring single commits. Please consult the documentation of the respective vcs tool for restoring local repositories to a remote location.
+The repositories are cloned locally as bare repositories. This means that the repositories aren't checked out in a working directory. The restore process depends on the scenario and may range from a complete repository to restoring single commits. Please consult the documentation of the respective vcs tool for restoring local repositories to a remote location.

@@ -65,7 +65,7 @@ $ curl http://localhost:8983/solr/<core_to>/replication?command=restorestatus
 Note:
 
 * The `responseHeader.exception` field will contain an exception if something went wrong
-** Check the permissions of the restored files; if required, fix them e.g. using
+** Check the permissions of the restored files; if required, fix them, for example using
 +
 [source,bash]
 --

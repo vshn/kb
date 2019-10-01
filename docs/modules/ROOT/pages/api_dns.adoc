@@ -4,7 +4,7 @@ The DNS API is used to manage zones, which are served by the VSHN DNS infrastruc
 
 Please make sure to read the xref:api_basics.adoc[API Basics] document before starting.
 
-WARNING: The current implementation cannot catch all possible illegal zone modifications. If you perform an incorrect operation, the CI job deploying the zone may fail. More input validation may be added in the future.
+WARNING: The current implementation can't catch all possible illegal zone modifications. If you perform an incorrect operation, the CI job deploying the zone may fail. More input validation may be added in the future.
 
 Base URL:: https://control.vshn.net/api/dns/1/
 
@@ -23,46 +23,46 @@ Base URL:: https://control.vshn.net/api/dns/1/
 | String
 | yes, except update
 | Canonical DNS name with a trailing '.'
-| "www.example.com."
+| `"www.example.com."`
 
 | ttl
 | String
 | no
 | This record's TTL.
-| "60"
+| `"60"`
 
 | cls
 | String
 | no
-| This record's class. Only allowed value is "IN".
-| "IN"
+| This record's class. Only allowed value is "IN"
+| `"IN"`
 
 
 | type
 | String
 | yes, except update
 | This record's type. All types per bind zone file spec, plus "ALIAS"
-| "CNAME"
+| `"CNAME"`
 
 | data
 | String[]
 | yes
 | Data of this record.
-| ["129.168.0.5"]
+| `["129.168.0.5"]`
 
-["v=spf1 redirect=spf.example.com", "~all"]
+`["v=spf1 redirect=spf.example.com", "~all"]`
 
 | dataComments
 | String[]
 | no
 | Comments for data of this record. Must have same length as data array, padded with null.
-| [null, "We'll change this to -all later"]
+| `[null, "We'll change this to -all later"]`
 
 | comment
 | String
 | no
 | Comment for the entire record
-| "IP assigned by customer"
+| `"IP assigned by customer"`
 |===
 
 
@@ -126,7 +126,7 @@ lb1                       IN       A      1.2.3.4
 
 200:: OK
 403:: Authentication error
-404:: `zoneId` does not exist
+404:: `zoneId` doesn't exist
 
 
 
@@ -152,7 +152,7 @@ SOA
 
 200:: OK
 403:: Authentication error
-404:: `zoneId` does not exist
+404:: `zoneId` doesn't exist
 
 
 
@@ -173,7 +173,7 @@ www.example.com.
 
 200:: OK
 403:: Authentication error
-404:: `zoneId` or `type` do not exist
+404:: `zoneId` or `type` don't exist
 
 
 
@@ -204,7 +204,7 @@ $ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/
 
 200:: OK
 403:: Authentication error
-404:: `zoneId`, `type` or `name` do not exist
+404:: `zoneId`, `type` or `name` don't exist
 
 
 
@@ -229,7 +229,7 @@ $ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/
 
 200:: OK
 403:: Authentication error
-404:: `zoneId`, `type` or `name` do not exist
+404:: `zoneId`, `type` or `name` don't exist
 
 
 
@@ -267,7 +267,7 @@ $ curl -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/example.com/
 
 200:: OK
 403:: Authentication error
-404:: `zoneId`, `type`, `name` or `nr` do not exist
+404:: `zoneId`, `type`, `name` or `nr` don't exist
 
 
 
@@ -292,7 +292,7 @@ $ curl -X POST -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/exam
 201:: Created
 400:: Input validation error
 403:: Authentication error
-404:: `zoneId` does not exist
+404:: `zoneId` doesn't exist
 
 
 
@@ -306,7 +306,7 @@ $ curl -X POST -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/exam
 
 === `PUT /{zoneId}/{type}/{name}/{nr}`
 
-Update an existing record. Send data as JSON in the request body. You can't change the type or name of a record; these values will be taken from the URL, and they will be ignored if they are present in the request body.
+Update an existing record. Send data as JSON in the request body. You can't change the type or name of a record; these values will be taken from the URL, and they will be ignored if they're present in the request body.
 
 [source,bash]
 .Example
@@ -319,7 +319,7 @@ $ curl -X PUT -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/examp
 200:: OK
 400:: Input validation error
 403:: Authentication error
-404:: `zoneId`, `type`, `name` or `nr` do not exist
+404:: `zoneId`, `type`, `name` or `nr` don't exist
 
 
 
@@ -343,7 +343,7 @@ $ curl -X DELETE -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/ex
 
 200:: OK
 403:: Authentication error
-404:: `zoneId`, `type`, `name` or `nr` do not exist
+404:: `zoneId`, `type`, `name` or `nr` don't exist
 
 
 
@@ -368,4 +368,4 @@ $ curl -X DELETE -H "X-AccessToken: [...]" https://control.vshn.net/api/dns/1/ex
 
 200:: OK
 403:: Authentication error
-404:: `zoneId` or `name` do not exist
+404:: `zoneId` or `name` don't exist

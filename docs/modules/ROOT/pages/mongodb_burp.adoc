@@ -4,7 +4,7 @@
 
 Dump destination directory: `/var/lib/mongodb-backup`
 
-The mongodb-pre-backup script uses https://docs.mongodb.com/manual/reference/program/mongodump/[`mongodump`] to export all MongoDB data in a consistent data format before every BURP run, i.e. usually once a day. Note that due to the lack of transactions in MongoDB, this is not a snapshot of the database; it's just consistent in the sense "the format is valid"; the data, in itself, may not be consistent, not even within a collection. This is not a problem per se, because that's exactly the same level of consistency that MongoDB offers in normal operation, thus the application must be built to cope with it. mongodump creates a folder with one bson and one json file per collection, and the entire folder is then tared and gzipped. The global database is backed up to "admin.tar.gz".
+The mongodb-pre-backup script uses https://docs.mongodb.com/manual/reference/program/mongodump/[`mongodump`] to export all MongoDB data in a consistent data format before every BURP run, usually once a day. Note that due to the lack of transactions in MongoDB, this isn't a snapshot of the database; it's just consistent in the sense "the format is valid"; the data, in itself, may not be consistent, not even within a collection. This isn't a problem per se, because that's exactly the same level of consistency that MongoDB offers in normal operation, thus the application must be built to cope with it. mongodump creates a folder with one bson and one json file per collection, and the entire folder is then tared and gzipped. The global database is backed up to "admin.tar.gz."
 
 Example file list:
 
@@ -16,7 +16,7 @@ portal.tar.gz
 
 == Restore
 
-Backups can be re-imported with the https://docs.mongodb.com/manual/reference/program/mongorestore/[`mongorestore`] command. The following commands should be seen as examples. An actual restore procedure depends on the situation at hand (i.e. partial restore after accidental data removal or a full restore after catastrophic hardware failure).
+Backups can be re-imported with the https://docs.mongodb.com/manual/reference/program/mongorestore/[`mongorestore`] command. The following commands should be seen as examples. An actual restore procedure depends on the situation at hand (partial restore after accidental data removal or a full restore after catastrophic hardware failure).
 
 . Restore from BURP (see xref:restore_from_backup.adoc[Restore Files from BURP Backup] for details and more options):
 +
@@ -40,14 +40,14 @@ $ tar zxf yourapp.tar.gz
 $ mongorestore -d yourapp-restored yourapp
 --
 
-This will restore the uncompressed *"yourapp"* directory with *all of its collections* (bson files) to a new database called *"yourapp-restored"*. It will take care of indexes, but *it will not restore the user accounts.*
+This will restore the uncompressed *"yourapp"* directory with *all of its collections* (bson files) to a new database called *"yourapp-restored"*. It will take care of indexes, but *it won't restore the user accounts.*
 
-To restore user accounts, you need to restore the *admin* database; this will only work if you restore the databases with the original names, otherwise the user's permissions will not match the database names.
+To restore user accounts, you need to restore the *admin* database; this will only work if you restore the databases with the original names, otherwise the user's permissions won't match the database names.
 
 This only works out of the box if you *don't use authentication*. If you use authentication, choose one of the following options:
 
 * If you have a *root user and password* (see /etc/mongodb.admin.js), use the parameters `--username root --password <password> --authenticationDatabase admin`
-* If you already have an *empty database with a user and password* (e.g. because it was created by Puppet), use the parameters `--username <user> --password <password>`
+* If you already have an *empty database with a user and password* (for example, because it was created by Puppet), use the parameters `--username <user> --password <password>`
 
 In general, the recommended way of restoring a server is to first restore the server itself including letting Puppet create the user accounts, and then restore the databases with their original names, but without restoring the admin database (because that should be unnecessary and may mess with MongoDB's internals). This may or may not work in your situation.
 

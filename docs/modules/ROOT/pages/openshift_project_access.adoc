@@ -19,7 +19,7 @@ In the left hand menu, select menu:Resources[Membership]. On the "Users" tab, cl
 
 [TIP]
 --
-In both cases (CLI and GUI), user names are NOT validated. You can enter whatever you want and OpenShift will not complain about it!
+In both cases (CLI and GUI), user names *aren't validated*. You can enter whatever you want and OpenShift won't complain about it!
 --
 
 == Revoke Access

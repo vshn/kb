@@ -4,7 +4,7 @@
 
 Dump destination directory: `/var/lib/mysql-backup`
 
-The mysql-pre-backup script uses https://mariadb.com/kb/en/mariadb/mysqldump/[mysqldump] to export all MySQL or MariaDB data in a consistent data format before every BURP run, i.e. usually once a day. The destination files are named after the database name and compressed using gzip. The global database is named `mysql`.
+The mysql-pre-backup script uses https://mariadb.com/kb/en/mariadb/mysqldump/[mysqldump] to export all MySQL or MariaDB data in a consistent data format before every BURP run, usually once a day. The destination files are named after the database name and compressed using gzip. The global database is named `mysql`.
 
 Example file list:
 
@@ -17,7 +17,7 @@ mysql-mysql.sql.gz
 
 == Restore
 
-Backups can be re-imported with the main mysql command line client as they are SQL scripts. The following commands should be seen as examples. An actual restore procedure depends on the situation at hand (i.e. partial restore after accidental data removal or a full restore after catastrophic hardware failure).
+Backups can be re-imported with the main mysql command line client as they're SQL scripts. The following commands should be seen as examples. An actual restore procedure depends on the situation at hand (partial restore after accidental data removal or a full restore after catastrophic hardware failure).
 
 . Restore from BURP (see xref:restore_from_backup.adoc[Restore Files from Backup] for details and more options):
 +
