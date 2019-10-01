@@ -13,7 +13,7 @@ See xref:create_ticket.adoc[Create Ticket] for detailed information. The ticket 
 Neugasse 10 +
 CH-8005 Zürich
 
-=== Telefon:
+=== E-Mail
 
 E-Mail: info@vshn.ch +
 Support E-Mail: support@vshn.ch
