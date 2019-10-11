@@ -15,7 +15,10 @@
 ** xref:postgresql_burp.adoc[PostgreSQL with BURP]
 ** xref:s3_backup_restores.adoc[S3 Backup and Restores]
 
+* xref:maintenance_process.adoc[Maintenance Process]
+
 * xref:monitoring_concept.adoc[Monitoring]
+
 
 * Puppet
 ** xref:customer_pacco.adoc[Customer Pacco]

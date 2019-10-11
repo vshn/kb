@@ -1,0 +1,18 @@
+= Maintenance Process
+
+== Overview
+This page should provide information about our maintenance process.
+
+== APPUiO Public Maintenance Process
+APPUiO Public is updated every Tuesday with the current security and software patches provided by the Linux distributions.
+Critical security vulnerabilities are announced by RedHat via https://access.redhat.com/security/security-updates/#/[Security Advisories], whose mailing list includes the VSHN Engineers.
+This security advisories are analysed within one business day.
+If a vulnerability affects the system directly, the update is planned as soon as possible.
+
+== Managed Server Maintenance Process
+Usually patches and updates for OS and software taking place once a week on Tuesdays.
+There are update groups for the servers to apply updates for afternoon, evening, and night.
+The frequency and the update groups are agreed with the customers.
+There are couple of servers, where the customer decided to have a maintenance only monthly.
+
+For Software Services (SaaS) (for example Atlassian, nextcloud) and  Application Services (PaaS) (for example Tomcat) there are special maintenance and update procedures defined.
