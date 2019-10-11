@@ -1,3 +1,9 @@
 = VSHN Knowledge Base
 
 This repository contains all the documents of the VSHN Knowledge Base hosted in https://kb.vshn.ch/[kb.vshn.ch].
+
+== Writing Style
+
+Please use the `make check` command after adding content to this Knowledge Base, to ensure that it conforms to our writing standards.
+
+NOTE: This check uses the https://github.com/errata-ai/vale/[`vale` tool].
