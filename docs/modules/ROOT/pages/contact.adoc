@@ -24,4 +24,8 @@ NOTE: Please use support@vshn.ch for support requests. E-Mails to support@vshn.c
 
 WARNING: Only customers with a 24/7 Service Level Agreement (SLA 7x24 Reaktiv / SLA 7x24 Proaktiv) are entitled to support services outside office hours.
 
-image::emergency.png[]
+[plantuml]
+....
+include::example$conf.plantuml[]
+include::example$emergency.plantuml[]
+....

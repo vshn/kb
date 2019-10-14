@@ -1,0 +1,35 @@
+hide empty members
+skinparam defaultFontName Ubuntu
+skinparam backgroundColor white
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype ortho
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+skinparam legend {
+    BackgroundColor LightGray
+    ArrowColor Black
+    BorderColor Black
+}
+skinparam note {
+    BackgroundColor LightGray
+    ArrowColor Black
+    BorderColor Black
+}
+skinparam stereotype {
+    CBackgroundColor LightGray
+}
+skinparam activity {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+skinparam state {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
