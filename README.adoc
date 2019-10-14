@@ -7,3 +7,15 @@ This repository contains all the documents of the VSHN Knowledge Base hosted in 
 Please use the `make check` command after adding content to this Knowledge Base, to ensure that it conforms to our writing standards.
 
 NOTE: This check uses the https://github.com/errata-ai/vale/[`vale` tool].
+
+== Contributing
+
+To preview your changes locally, follow these steps:
+
+. Make sure you have Docker installed.
+. Clone this repository.
+. Make your changes in a separate branch.
+. Commit your changes.
+. Type the `make` command to build the documentation site in your system.
+. The `index.html` page will open automatically when the build process has finished.
+
