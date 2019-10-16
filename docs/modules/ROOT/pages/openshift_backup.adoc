@@ -1,0 +1,21 @@
+= OpenShift 3 Backup
+
+Additionally to what's described in the xref:backup_concept.adoc[Backup Concept], the following data is backed up from OpenShift Clusters
+
+== etcd dump
+
+Additionally to the base backup, on all master nodes which have etcd installed, a pre-backup script dumps (`etcdctl backup`) etcd to `/var/lib/etcd.bak` where it's also backed up by burp.
+
+== OpenShift resources
+
+A pre-backup script on each master node exports all OpenShift resources to `/var/lib/openshift-backup` from where it's backed up by burp. For each resource type (for example ConfigMap, DeploymentConfig, etc.) a separate JSON file is created which contains all resources of this type.
+
+== Gluster volumes
+
+One of the Gluster servers (configured in hiera with `profile_gluster::backup`) runs a pre-backup script which mounts every Gluster volume and backs up the content with burp.
+
+NOTE: This backs up Gluster volumes purely on a file level, no application-level dumps are created or similar. This means that for DBMS like PostgreSQL or MySQL, data files are backed up at runtime, which may result in corrupted files when restored.
+
+== Notable exclusions
+
+* The S3 storage backing the *internal docker registry* ISN'T backed up. Images in the internal registry are meant to be either pulled and cached from another registry, or being built reproductibly from source by a build config.
