@@ -1,11 +1,11 @@
 = Maintenance Process
 
 == Overview
-This page should provide information about our maintenance process.
+This page provides information about our maintenance process.
 
 == APPUiO Public Maintenance Process
 APPUiO Public servers are updated every Tuesday with the current security and software patches provided by the Linux distributions.
-Critical security vulnerabilities in the Openshift softwar are announced by RedHat via https://access.redhat.com/security/security-updates/#/[Security Advisories], whose mailing list includes the VSHN Engineers.
+Critical security vulnerabilities in the Openshift software are announced by RedHat via https://access.redhat.com/security/security-updates/#/[Security Advisories], whose mailing list includes the VSHN Engineers.
 This security advisories are analysed within one business day.
 If a vulnerability affects the system directly, the update is planned as soon as possible.
 
