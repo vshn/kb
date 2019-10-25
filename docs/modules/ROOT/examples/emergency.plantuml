@@ -4,31 +4,31 @@
 (*) --> "**Customer calls**"
 -right-> "**OnCall automated** \n **welcome message**"
 --> "**Call is queued**"
--left-> "**OnCall automation calls** \n **scheduled technician**"
--left-> "//OnCall technician// \n //accepts call within// \n //1 minute?//"
+-left-> "**OnCall automation calls** \n **scheduled engineer**"
+-left-> "//OnCall engineer// \n //accepts call within// \n //1 minute?//"
 if "" then
-  -left-> [YES] "**Queued customer call is** \n **connected to technician** " as done
-  -left-> " **OnCall technician** \n **handles case**"
+  -left-> [YES] "**Queued customer call is** \n **connected to engineer** " as done
+  -left-> " **OnCall engineer** \n **handles case**"
   --> (*)
 else
-  -right-> [NO] "Additional notification sent \n to OnCall technician"
-  -down-> "//OnCall technician// \n //accepts call within// \n //another 1 minute?//"
+  -right-> [NO] "Additional notification sent \n to OnCall engineer"
+  -down-> "//OnCall engineer// \n //accepts call within// \n //another 1 minute?//"
   if "" then
     --> [YES] done
   else
     --> [NO] "Customer routed to \n Voicemail box"
-    --> "Voicemail is sent to \n scheduled technician" as voicemail
-    --> "//1st-level OnCall// \n //technician// \n //acknowledged// \n //within 15 min?//"
+    --> "Voicemail is sent to \n scheduled engineer" as voicemail
+    --> "//1st-level OnCall// \n //engineer// \n //acknowledged// \n //within 15 min?//"
     if "" then
       --> [YES] done
     else
-      --> [NO] "Voicemail is sent \n to 2nd-level \n OnCall technician"
-      --> "//2nd-level OnCall// \n //technician// \n //acknowledged// \n //within 10 min?//"
+      --> [NO] "Voicemail is sent \n to 2nd-level \n OnCall engineer"
+      --> "//2nd-level OnCall// \n //engineer// \n //acknowledged// \n //within 10 min?//"
       if "" then
         --> done
       else
-        --> [NO] "Voicemail is sent to all \n VSHN technicians"
-        --> "//Some// \n //technician// \n //acknowledged// \n //within 15 min?//"
+        --> [NO] "Voicemail is sent to all \n VSHN engineers"
+        --> "//Some// \n //engineer// \n //acknowledged// \n //within 15 min?//"
         if "" then
           --> done
         else
