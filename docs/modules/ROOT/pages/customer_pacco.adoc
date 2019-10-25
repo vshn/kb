@@ -1,8 +1,8 @@
 = Customer Pacco
 
-This is a special how-to for customers which want do do puppet module / profile development. The idea is to need access to as few as possible puppet modules in our gitlab, meaning that the VM won't get most of the VSHN basic puppet modules, mainly just the customer profile / the profile that wants to be developed on and it's dependencies.
+This is a special how-to for customers who want do puppet module / profile development. The idea is to need access to as few as possible puppet modules in our GitLab, meaning that the VM won't get most of the VSHN basic puppet modules, mainly just the customer profile / the profile that wants to be developed on and its dependencies.
 
-There are of course things like not purging the vagrant user, packagemanger, etc. which we can't live without.
+There are, of course, things like not purging the Vagrant user, package manger, etc. which we can't live without.
 
 == Setup
 
