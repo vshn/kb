@@ -2,7 +2,7 @@
 
 == Office hours
 
-09:00 until 18:00 Monday to Friday excluding public Holidays (Zurich)
+09:00 until 18:00 Monday to Friday excluding public holidays (Zurich)
 
 == E-Mail Support / Helpdesk
 
@@ -15,10 +15,11 @@ CH-8005 Zürich
 
 === E-Mail
 
-E-Mail: info@vshn.ch +
-Support E-Mail: support@vshn.ch
+General inquiries: info@vshn.ch +
+Sales: sales@vshn.ch +
+Support: support@vshn.ch
 
-NOTE: Please use support@vshn.ch for support requests. E-Mails to support@vshn.ch are tracked in our Ticket System and help us to improve response time and quality of service.
+NOTE: E-mails to support@vshn.ch are tracked in our Ticket System and help us to improve response time and quality of service. You can also use our https://control.vshn.net/[Customer Portal] to open a support ticket. If you're not a customer yet please use sales@vshn.ch to get in touch.
 
 == Emergency contact procedure outside office hours
 
