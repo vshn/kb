@@ -2,6 +2,6 @@
 
 image::vshn_logo.png[]
 
-This is the entry page of the VSHN Knowledge Base. Use the Search field at the top of this page, or navigate through topics with the tree on the left.
+This is the welcome page of VSHN's Knowledge Base. Use the search field at the top of this page, or navigate through topics with the tree on the left.
 
-If you need more help, xref:contact.adoc[get in contact with us].
+If you need more help please xref:contact.adoc[get in touch with us].
