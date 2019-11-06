@@ -10,9 +10,53 @@ This security advisories are analysed within one business day.
 If a vulnerability affects the system directly, the update is planned as soon as possible.
 
 == Managed Server Maintenance Process
-Usually patches and updates for OS and software taking place once a week on Tuesdays.
-There are update groups for the servers to apply updates for afternoon, evening, and night.
-The frequency and the update groups are agreed with the customers.
-There are couple of servers, where the customer decided to have a maintenance only monthly.
+All servers managed by VSHN are underlying a regular maintenance process.
+The regularly maintenance usually takes place on Tuesdays.
+On that day the current patches and updates provided by the repositories of the running operation system are installed.
+
+Even though we at VSHN like to automate every possible process, the maintenance still has some manual steps.
+In theory the updates should not break running services, but since we are managing over 1000 servers with every update something could break.
+For this reason a VSHN engineer is supervising and running the updates.
+
+VSHN agrees with every customer, when their servers could be updated.
+We do have currently 4 maintenance windows.
+Tuesday morning, Tuesday afternoon starting 13:00, Tuesday evening starting 18:00, and finally Tuesday night starting 22:00.
+Like that every customer can choose the window for their services regarding the criticality, time zones of end users, and other thoughts.
+
+Further there are services and servers, where customers chose only to update the servers once a month.
+This monthly maintenance is taking place on the first Tuesday of every month.
 
 For Software Services (SaaS) (for example Atlassian, nextcloud) and  Application Services (PaaS) (for example Tomcat) there are special maintenance and update procedures defined.
+
+=== The Maintenance Day
+The update procedure starts on Mondays every week.
+On this day couple of preparations are taking place and customers are informed about the upcoming maintenance window.
+Now every involved VSHNeer is aware of his role in the next day's maintenance.
+
+On the maintenance day the responsible VSHNeer in the morning first check our dedicated monitoring checks for the update repositories.
+Here we have to mention, that every server downloads its updates from a VSHN cache server; with this we make sure every server has the same base to download new packages and updates.
+If there are servers with difficulties to update some repos -- e.g. when a special repository does not exist anymore -- then first this has to be fixed by the maintenance engineer.
+After every server successful updated their repository, the cache is froze so new updates coming during the day do not influence the update procedure.
+
+Now the maintenance engineers can start their tool; for managed services we us `apt-dater`, which allows to grab status and update servers centralized.
+After every server appears with its up-to-date state in the tool, the engineer can start with the morning group,
+which currently is the smallest one and is finished within 10 minutes.
+
+When the clock hits 13:00 Europe/Zurich time (CET in winter, CEST in summer) the first big maintenance window starts.
+The maintenance window is divided in several groups.
+So we make sure servers of the same cluster are not rebooted at the same time if a reboot is needed.
+While every group is updated step by step there are for some special servers automated updates with Ansible Playbooks.
+The maintenance engineer checks constantly our monitoring;
+if problems occur after updating one group, they will be fixed immediately so the following updates will run smoothly or at least the workaround or fix for the problems is known.
+The afternoon 13:00 maintenance window usually takes until 18:00, where we directly could switch to the 18:00 window.
+
+The 18:00 evening window usually is quickly done, because there are not that much servers in it.
+Often qual servers are updated the and their corresponding prod servers are updated later in the night window.
+When finished at about 19:00 the maintenance engineer can leave for the well-deserved dinner break.
+
+The night window starting at 22:00 and here are the most servers to update, since most customers are based in Switzerland and prefer no down-time during office hours.
+The procedure is the same as in the afternoon maintenance.
+Additionally special tasks are done here.
+If tasks like scaling VMs or individual updates for some servers should be done outside office hours, they maintenance engineer will do this in this maintenance window.
+
+If everything works well without problem, the maintenance could be finished at 01:00 of the next morning.
