@@ -63,3 +63,16 @@ Additionally special tasks are done here.
 If tasks like scaling VMs or individual updates for some servers should be done outside office hours, they maintenance engineer will do this in this maintenance window.
 
 If everything works well without problem, the maintenance could be finished at 01:00 of the next morning.
+
+=== Update SaaS and PaaS
+SaaS services like Atlassian software are updated every month.
+Atlassian in special is updated on the Wednesday after the first Tuesday of each the month.
+The updates takes place at 22:00.
+Minor updates are installed manually by our Atlassian experts in VSHN.
+The Atlassian suite consists of software like Jira, Confluence, Bitbucket, and Bamoboo.
+After every update we make sure the plugins installed are running again.
+For major updates we will contact the customers to agree on a maintenance window to update.
+
+Other software like Tomcat and Nextcloud are updated during the regular maintenance windows on the first Tuesday of every month.
+Also here the major updates will be handled in agreement with the customer.
+
