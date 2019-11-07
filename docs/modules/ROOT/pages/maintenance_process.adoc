@@ -2,6 +2,9 @@
 
 == Overview
 This page provides information about our maintenance process.
+Basically we have two kind of maintenances procedures.
+For the APPUiO clusters and Openshift clusters our internal Squad _Sirius_ is responsible.
+The managed servers -- the more "classical" servers/services -- are updated in responsibility of our internal Squad _Polaris_.
 
 == APPUiO Public Maintenance Process
 APPUiO Public servers are updated every Tuesday with the current security and software patches provided by the Linux distributions.
