@@ -2,14 +2,16 @@ site:
   title: "DRAFT: Knowledge Base"
   url: http://localhost/
   start_page: kb::index.adoc
+  robots: disallow
 content:
   sources:
   - url: .                 # The current folder is a git repo
     branches: HEAD         # "HEAD" uses whichever branch is currently checked out
     start_path: docs
+    edit_url: 'https://github.com/vshn/kb/edit/develop/{path}'
 ui:
   bundle:
-    url: https://github.com/vshn/antora-ui-default/releases/download/1.2.1/ui-bundle.zip
+    url: https://github.com/vshn/antora-ui-default/releases/download/1.4/ui-bundle.zip
     snapshot: false
 asciidoc:
   attributes:
