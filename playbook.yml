@@ -21,10 +21,9 @@ asciidoc:
     hide-uri-scheme: ''
     experimental: ''
     stem: ''
-    plantuml-server-url: http://www.plantuml.com/plantuml
-    plantuml-fetch-diagram: ''
+    kroki-server-url: https://vshn-kroki.appuioapp.ch
   extensions:
-  - asciidoctor-plantuml
+  - asciidoctor-kroki
 output:
   destinations:
   - provider: fs
