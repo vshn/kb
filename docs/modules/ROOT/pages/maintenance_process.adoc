@@ -1,78 +1,58 @@
 = Maintenance Process
 
-== Overview
-This page provides information about our maintenance process.
-Basically we have two kind of maintenances procedures.
-For the APPUiO clusters and Openshift clusters our internal Squad _Sirius_ is responsible.
-The managed servers -- the more "classical" servers/services -- are updated in responsibility of our internal Squad _Polaris_.
+This page provides information about the maintenance process.
 
-== APPUiO Public Maintenance Process
-APPUiO Public servers are updated every Tuesday with the current security and software patches provided by the Linux distributions.
-Critical security vulnerabilities in the Openshift software are announced by RedHat via https://access.redhat.com/security/security-updates/#/[Security Advisories], whose mailing list includes the VSHN Engineers.
-This security advisories are analysed within one business day.
-If a vulnerability affects the system directly, the update is planned as soon as possible.
+NOTE: All times in this document in the CET (Europe/Zurich) timezone.
 
-== Managed Server Maintenance Process
-All servers managed by VSHN are underlying a regular maintenance process.
-The regularly maintenance usually takes place on Tuesdays.
-On that day the current patches and updates provided by the repositories of the running operation system are installed.
+== APPUiO Public
 
-Even though we at VSHN like to automate every possible process, the maintenance still has some manual steps.
-In theory the updates should not break running services, but since we are managing over 1000 servers with every update something could break.
-For this reason a VSHN engineer is supervising and running the updates.
+The APPUiO Public infrastructure is updated every Tuesday with current security patches provided by various Linux distributions. Critical security vulnerabilities in OpenShift are announced by RedHat via https://access.redhat.com/security/security-updates/#/[Security Advisories], a mailing list continuously monitored by VSHN.
 
-VSHN agrees with every customer, when their servers could be updated.
-We do have currently 4 maintenance windows.
-Tuesday morning, Tuesday afternoon starting 13:00, Tuesday evening starting 18:00, and finally Tuesday night starting 22:00.
-Like that every customer can choose the window for their services regarding the criticality, time zones of end users, and other thoughts.
+Individual security advisories are analysed every day. If a vulnerability critically impacts a particular system, updates are scheduled immediately.
 
-Further there are services and servers, where customers chose only to update the servers once a month.
-This monthly maintenance is taking place on the first Tuesday of every month.
+== Managed Servers
 
-For Software Services (SaaS) (for example Atlassian, nextcloud) and  Application Services (PaaS) (for example Tomcat) there are special maintenance and update procedures defined.
+All hosts managed by VSHN undergo regular maintenance processes. These usually take place on Tuesdays. On that day the current patches and updates provided by the repositories of the running operation systems are installed.
 
-=== The Maintenance Day
-The update procedure starts on Mondays every week.
-On this day couple of preparations are taking place and customers are informed about the upcoming maintenance window.
-Now every involved VSHNeer is aware of his role in the next day's maintenance.
+In spite of a high degree of automation, maintenance procedures may involve some manual steps. To avoid disrupting running services, updates are monitored by engineers in real time.
 
-On the maintenance day the responsible VSHNeer in the morning first check our dedicated monitoring checks for the update repositories.
-Here we have to mention, that every server downloads its updates from a VSHN cache server; with this we make sure every server has the same base to download new packages and updates.
-If there are servers with difficulties to update some repos -- e.g. when a special repository does not exist anymore -- then first this has to be fixed by the maintenance engineer.
-After every server successful updated their repository, the cache is froze so new updates coming during the day do not influence the update procedure.
+Update schedules are agreed with every customer individually. There are four (4) possible maintenance windows:
 
-Now the maintenance engineers can start their tool; for managed services we us `apt-dater`, which allows to grab status and update servers centralized.
-After every server appears with its up-to-date state in the tool, the engineer can start with the morning group,
-which currently is the smallest one and is finished within 10 minutes.
+* Tuesday mornings from 08:00;
+* Tuesday afternoons from 13:00;
+* Tuesday evenings from 18:00;
+* Tuesday nights from 22:00.
 
-When the clock hits 13:00 Europe/Zurich time (CET in winter, CEST in summer) the first big maintenance window starts.
-The maintenance window is divided in several groups.
-So we make sure servers of the same cluster are not rebooted at the same time if a reboot is needed.
-While every group is updated step by step there are for some special servers automated updates with Ansible Playbooks.
-The maintenance engineer checks constantly our monitoring;
-if problems occur after updating one group, they will be fixed immediately so the following updates will run smoothly or at least the workaround or fix for the problems is known.
-The afternoon 13:00 maintenance window usually takes until 18:00, where we directly could switch to the 18:00 window.
+Every customer can choose their preferred service window depending on their requirements.
 
-The 18:00 evening window usually is quickly done, because there are not that much servers in it.
-Often qual servers are updated the and their corresponding prod servers are updated later in the night window.
-When finished at about 19:00 the maintenance engineer can leave for the well-deserved dinner break.
+Customers can choose to only perform updates once a month. This monthly maintenance takes place on the first Tuesday of every month.
 
-The night window starting at 22:00 and here are the most servers to update, since most customers are based in Switzerland and prefer no down-time during office hours.
-The procedure is the same as in the afternoon maintenance.
-Additionally special tasks are done here.
-If tasks like scaling VMs or individual updates for some servers should be done outside office hours, they maintenance engineer will do this in this maintenance window.
+NOTE: For Software Services (SaaS) such as Atlassian or Nextcloud, and Application Services (PaaS) such as Tomcat, there are special maintenance and update procedures defined, explained below in this document.
 
-If everything works well without problem, the maintenance could be finished at 01:00 of the next morning.
+=== Maintenance
+
+Maintenance tasks proceed sequentially as follows:
+
+. Update procedures start on Monday every week. At that moment teams plan their interventions, project management assigns tasks, customers are informed about upcoming maintenance windows, and VSHNeers prepare their interventions.
+
+. *On maintenance day* the responsible team checks the dedicated monitoring checks for the update repositories. Every server downloads its updates from a VSHN cache server, to make sure every server downloads the same base packages and updates. If some servers show difficulties to update some repos (for example when a special repository doesn't exist anymore) then this is fixed first by the maintenance engineer. After every server successfully updated their repositories, the cache is frozen so that new updates coming during the day don't influence the update procedure.
+
+. The `apt-dater` tool centralizes status information and performs updates on managed services. This tool operates on a server-by-server basis. After every server appears up-to-date, engineers can start with the "morning group," whose update usually finishes within 10 minutes.
+
+. At 13:00 starts the first big maintenance window, divided in several groups, to avoid servers of the same cluster from rebooting simultaneously. Every group is updated step by step, but for some special servers there are automated updates with Ansible playbooks. Maintenance engineers constantly check monitoring information during the process. If any problems appear after updating one group, they're fixed immediately, to ensure the following updates will run smoothly, and to document the workaround or solution used.
+
+. At 18:00 starts the evening maintenance window, which usually finishes quickly thanks to the low number of servers involved. The "prod" servers are usually updated later in the night window, after their counterpart "qual" servers.
+
+. At 19:00 engineers take a break.
+
+. At 22:00 starts the night maintenance window. This one involves the largest number of servers to update. This window is preferred by customers in Switzerland, eager to avoid downtime during office hours. The procedure is the same as in the afternoon maintenance. Additionally, special tasks are usually done during this window. If tasks like scaling VMs or individual updates for some servers should be done outside office hours, the maintenance engineer usually performs them in this maintenance window.
+
+. At 01:00 the next morning, if everything went well, the maintenance is finished.
 
 === Update SaaS and PaaS
-SaaS services like Atlassian software are updated every month.
-Atlassian in special is updated on the Wednesday after the first Tuesday of each the month.
-The updates takes place at 22:00.
-Minor updates are installed manually by our Atlassian experts in VSHN.
-The Atlassian suite consists of software like Jira, Confluence, Bitbucket, and Bamoboo.
-After every update we make sure the plugins installed are running again.
-For major updates we will contact the customers to agree on a maintenance window to update.
 
-Other software like Tomcat and Nextcloud are updated during the regular maintenance windows on the first Tuesday of every month.
-Also here the major updates will be handled in agreement with the customer.
+SaaS services like Atlassian software are updated every month. Atlassian products in particular are updated on Wednesdays following the first Tuesday of each the month. These updates take place at 22:00. Minor updates are installed manually by Atlassian experts at VSHN. After every update we ensure installed plugins are running again. For major updates, customers are contacted individually to agree on a maintenance window.
 
+NOTE: The Atlassian suite consists of software like Jira, Confluence, Bitbucket, and Bamboo.
+
+PaaS software packages, like Tomcat and Nextcloud, are updated during regular maintenance windows on the first Tuesday of every month. In any case, major updates will be performed in agreement with the customer.
