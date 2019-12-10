@@ -16,7 +16,10 @@
 ** xref:view_backup_log_file.adoc[View Backup Log File]
 ** xref:vcs_repos_burp.adoc[VCS Repositories with BURP]
 
+* xref:maintenance_process.adoc[Maintenance Process]
+
 * xref:monitoring_concept.adoc[Monitoring]
+
 
 * Puppet
 ** xref:customer_pacco.adoc[Customer Pacco]
