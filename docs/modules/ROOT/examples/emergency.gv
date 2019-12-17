@@ -1,6 +1,5 @@
 digraph "VSHN" {
-  graph [ fontname = "Ubuntu",
-          label = "Emergency contact procedure outside office hours" ];
+  graph [ fontname = "Ubuntu" ];
 
   node [ shape=circle,
          color=black,
