@@ -1,6 +1,5 @@
 digraph "VSHN" {
   graph [ fontname = "Ubuntu",
-          fontsize = 36,
           label = "Emergency contact procedure outside office hours",
           size = "6,6" ];
 
@@ -12,8 +11,7 @@ digraph "VSHN" {
   node [ shape=diamond,
          style=filled,
          color=grey,
-         fontname="Ubuntu",
-         fontsize=18 ];
+         fontname="Ubuntu" ];
 
   Q1 [ label="OnCall engineer\naccepts call within\n1 minute?" ];
   Q2 [ label="OnCall engineer\naccepts call within\nanother 1 minute?" ];
@@ -55,26 +53,26 @@ digraph "VSHN" {
   B -> C;
   C -> D;
   D -> Q1;
-  Q1 -> E [ label=YES,fontname="Ubuntu",fontsize=16 ];
+  Q1 -> E [ label=YES,fontname="Ubuntu" ];
   E -> F;
   F -> stop;
 
-  Q1 -> G [ label=NO, fontname="Ubuntu",fontsize=16 ];
+  Q1 -> G [ label=NO, fontname="Ubuntu" ];
   G -> Q2;
-  Q2 -> E [ label=YES, fontname="Ubuntu",fontsize=16 ];
+  Q2 -> E [ label=YES, fontname="Ubuntu" ];
 
-  Q2 -> H [ label=NO, fontname="Ubuntu",fontsize=16 ];
+  Q2 -> H [ label=NO, fontname="Ubuntu" ];
   H -> I;
   I -> Q3;
-  Q3 -> E [ label=YES, fontname="Ubuntu",fontsize=16 ];
+  Q3 -> E [ label=YES, fontname="Ubuntu" ];
 
-  Q3 -> J [ label=NO, fontname="Ubuntu",fontsize=16 ];
+  Q3 -> J [ label=NO, fontname="Ubuntu" ];
   J -> Q4;
-  Q4 -> E [ label=YES, fontname="Ubuntu",fontsize=16 ];
+  Q4 -> E [ label=YES, fontname="Ubuntu" ];
 
   Q4 -> K;
   K -> Q5;
-  Q5 -> E [ label=YES, fontname="Ubuntu",fontsize=16 ];
+  Q5 -> E [ label=YES, fontname="Ubuntu" ];
 
-  Q5 -> I [ label=NO, fontname="Ubuntu",fontsize=16 ];
+  Q5 -> I [ label=NO, fontname="Ubuntu" ];
 }
