@@ -1,0 +1,76 @@
+digraph "VSHN" {
+  graph [ fontname = "Ubuntu" ];
+
+  node [ shape=circle,
+         color=black,
+         style=filled,
+         width=0.20 ]; start [label=""]; stop [label=""];
+
+  node [ shape=diamond,
+         style=filled,
+         color=grey,
+         fontname="Ubuntu" ];
+
+  Q1 [ label="OnCall engineer\naccepts call within\n1 minute?" ];
+  Q2 [ label="OnCall engineer\naccepts call within\nanother 1 minute?" ];
+  Q3 [ label="1st-level OnCall\nengineer acknowledged\nwithin 15 minutes?" ];
+  Q4 [ label="2nd-level OnCall\nengineer acknowledged within\n10 minutes?" ];
+  Q5 [ label="Some engineer\nacknowledged within\n15 minutes?" ];
+
+  node [ shape = rect,
+         distortion = "0.0",
+         orientation = "0.0",
+         skew = "0.0",
+         color = darkgreen,
+         fontcolor="white",
+         fontname = "Ubuntu" ];
+
+  A [ label="Customer calls" ];
+  B [ label="OnCall automated\nwelcome message" ];
+  C [ label="Call is queued" ];
+  D [ label="OnCall automation calls\nscheduled engineer" ];
+  E [ label="Queued customer call\nis connected to engineer" ];
+  F [ label="OnCall engineer\nhandles case" ];
+
+  node [ shape = rect,
+         distortion = "0.0",
+         orientation = "0.0",
+         skew = "0.0",
+         color = orange,
+         fontcolor="black",
+         fontname = "Ubuntu" ];
+
+  G [ label="Additional notification\nsent to OnCall engineer" ];
+  H [ label="Customer routed to\nVoicemail box" ];
+  I [ label="Voicemail is sent to\nscheduled engineer" ];
+  J [ label="Voicemail is sent to\n2nd-level OnCall engineer" ];
+  K [ label="Voicemail is sent to\nall VSHN engineers" ];
+
+  start -> A;
+  A -> B;
+  B -> C;
+  C -> D;
+  D -> Q1;
+  Q1 -> E [ label=YES,fontname="Ubuntu" ];
+  E -> F;
+  F -> stop;
+
+  Q1 -> G [ label=NO, fontname="Ubuntu" ];
+  G -> Q2;
+  Q2 -> E [ label=YES, fontname="Ubuntu" ];
+
+  Q2 -> H [ label=NO, fontname="Ubuntu" ];
+  H -> I;
+  I -> Q3;
+  Q3 -> E [ label=YES, fontname="Ubuntu" ];
+
+  Q3 -> J [ label=NO, fontname="Ubuntu" ];
+  J -> Q4;
+  Q4 -> E [ label=YES, fontname="Ubuntu" ];
+
+  Q4 -> K;
+  K -> Q5;
+  Q5 -> E [ label=YES, fontname="Ubuntu" ];
+
+  Q5 -> I [ label=NO, fontname="Ubuntu" ];
+}

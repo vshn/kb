@@ -25,8 +25,7 @@ NOTE: E-mails to support@vshn.ch are tracked in our Ticket System and help us to
 
 WARNING: Only customers with a 24/7 Service Level Agreement (SLA 7x24 Reaktiv / SLA 7x24 Proaktiv) are entitled to support services outside office hours.
 
-[plantuml]
+[graphviz]
 ....
-include::example$conf.plantuml[]
-include::example$emergency.plantuml[]
+include::example$emergency.gv[]
 ....
