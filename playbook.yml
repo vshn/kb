@@ -11,7 +11,7 @@ content:
     edit_url: 'https://github.com/vshn/kb/edit/develop/{path}'
 ui:
   bundle:
-    url: https://github.com/vshn/antora-ui-default/releases/download/1.4/ui-bundle.zip
+    url: https://github.com/vshn/antora-ui-default/releases/download/1.5/ui-bundle.zip
     snapshot: false
 asciidoc:
   attributes:
@@ -21,6 +21,7 @@ asciidoc:
     hide-uri-scheme: ''
     experimental: ''
     stem: ''
+    icons: font
     kroki-server-url: https://vshn-kroki.appuioapp.ch
   extensions:
   - asciidoctor-kroki
