@@ -128,7 +128,7 @@ vshn
 
 === `GET /{customerId}/`
 
-List the fully qualified domain names of all servers of a customer.
+List the fully qualified domain names of all servers of a customer. You can use the wildcard "_" for `customerId`, in which case you will see the servers of all customers you have access to.
 
 [source,bash]
 .Example
@@ -158,7 +158,7 @@ web2.qq1soft.com
 
 === `GET /{customerId}/{fqdn}`
 
-Get a server's definition as JSON.
+Get a server's definition as JSON. You can use the wildcard "_" for `customerId`.
 
 [source,bash]
 .Example
@@ -215,7 +215,7 @@ $ curl -X POST -d '{"fqdn": "wiki.dev.qq1soft.com", "customer": "qq1soft", "envi
 
 === PUT `/{customerId}/{fqdn}`
 
-Update an existing server definition. JSON payload. Which server to update is determined by the URL.
+Update an existing server definition. JSON payload. Which server to update is determined by the URL. You can use the wildcard "_" for `customerId`.
 
 IMPORTANT: The JSON must contain all fields that aren't null, including those that remain the same (except fqdn, modDate modUser, which will be ignored).
 
@@ -246,7 +246,7 @@ $ curl -X PUT -d '{"customer": "qq1soft", "environment": "QQ1Dev", "project": "d
 
 === `DELETE /{customerId}/{fqdn}`
 
-Delete an existing server definition.
+Delete an existing server definition.  You can use the wildcard "_" for `customerId`.
 
 [source,bash]
 .Example
@@ -265,7 +265,7 @@ $ curl -X DELETE https://control.vshn.net/api/servers/1/qq1soft/wiki.dev.qq1soft
 
 === `GET /{customerId}/{fqdn}/facts`
 
-Get all facts of a server.
+Get all facts of a server. You can use the wildcard "_" for `customerId`.
 
 [source,bash]
 .Example
