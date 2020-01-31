@@ -33,3 +33,6 @@
 ** xref:api_dns.adoc[DNS]
 ** xref:api_openshift.adoc[OpenShift]
 ** xref:api_servers.adoc[Servers]
+
+* OpenShift
+** xref:openshift_red_hat_registry.adoc[Red Hat container registry]
