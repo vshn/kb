@@ -15,6 +15,7 @@
 ** xref:solr_backup_restore.adoc[Solr Backup and Restore]
 ** xref:view_backup_log_file.adoc[View Backup Log File]
 ** xref:vcs_repos_burp.adoc[VCS Repositories with BURP]
+** xref:lvm_snapshots_burp.adoc[LVM Snapshots with BURP]
 
 * xref:maintenance_process.adoc[Maintenance Process]
 
