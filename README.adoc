@@ -1,6 +1,6 @@
 = VSHN Knowledge Base
 
-This repository contains all the documents of the VSHN Knowledge Base hosted in https://kb.vshn.ch/[kb.vshn.ch].
+This repository contains all the documents of the VSHN Knowledge Base hosted on https://kb.vshn.ch/[kb.vshn.ch].
 
 == Writing Style
 
