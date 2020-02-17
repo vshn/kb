@@ -1,0 +1,23 @@
+= Access the Red Hat container registry for development
+
+This document describes how to procure the credentials required to pull container images from the https://catalog.redhat.com/software/containers/search[Red Hat container registry] for development purposes.
+
+NOTE: No Red Hat subscription is required to access those images for development.
+
+As part of their transitioning process, Red Hat has https://www.redhat.com/en/blog/transitioning-red-hat-container-registry[announced that in the future, their container registry will only be accessible to authenticated users].
+
+While at the moment, container images are still available without authentication by using `registry.access.redhat.com` as the container registry, this registry will eventually be retired.
+
+NOTE: On OpenShift Container Platforms, the credentials required to access Red Hat container images should already be preconfigured
+
+== Step by step guide
+
+0. Get a Red Hat login. If you don't already have one, you can create one for free by signing up to the https://developers.redhat.com/[Red Hat Developer program]. This will give you free access to developer tools and programs.
+0. Create a https://access.redhat.com/terms-based-registry/[Registry Service Account].
+0. Authenticate your local Docker installation with the Red Hat registry. To obtain the command required to do so, select the service account you just created and go to the "Docker Login" tab.
+
+And that's it! You should now be able to pull container images from the Red Hat registry:
+
+----
+docker pull registry.redhat.io/rhel7-atomic
+----
