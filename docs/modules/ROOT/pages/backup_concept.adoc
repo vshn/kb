@@ -109,10 +109,10 @@ In the default configuration managed servers are configured to backup to a off-s
 |===
 Name: Hardware Owner: ISP: Location
 `backup1.cloudscale.vshn.net`: VSHN AG: cloudscale.ch AG: e-shelter datacenter, Rümlang, Switzerland
-`backup8.ix.gtg.ch.vshn.net`: VSHN AG: cloudscale.ch AG: green.ch datacenter, Lupfig, Switzerland
 `backup9.lpg.cloudscale.vshn.net`: VSHN AG: cloudscale.ch AG: green.ch datacenter, Lupfig, Switzerland
 `backup10.lpg.cloudscale.vshn.net`: VSHN AG: cloudscale.ch AG: green.ch datacenter, Lupfig, Switzerland
 `backup11.lpg.cloudscale.vshn.net`: VSHN AG: cloudscale.ch AG: green.ch datacenter, Lupfig, Switzerland
+`backup12.lpg.cloudscale.vshn.net`: VSHN AG: cloudscale.ch AG: green.ch datacenter, Lupfig, Switzerland
 
 |===
 
