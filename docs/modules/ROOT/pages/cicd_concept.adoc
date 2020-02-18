@@ -1,0 +1,28 @@
+= Continuous Delivery
+
+In order to ensure that code released to production is of the highest possible quality, we recommend
+setting up three separate deployment environments to play different roles in the Continuous Integration 
+/ Continuous Delivery process.
+
+== Target Enviroments
+
+A typical CI/CD framework would deploy images to the following three environments:
+
+=== Development
+
+The development environment is used for internal testing of infrastructure, such as endpoints,
+pipelines, back-end authentication, load tests, and database configuration.
+
+=== Integration
+
+The integration environment is used to develop and test the integration of external applications
+that access the application. It's also for testing the actual images that are release candidates
+for production.
+
+=== Production
+
+The production environment should be self-explanatory: It's used as the live, productive system used by
+real clients. Code should be deployed here only after passing rigorous tests on the other two environments.
+
+We recommend deploying the same images to production that were already tested on the integration
+environment, rather than building separate images for production.

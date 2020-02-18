@@ -21,6 +21,7 @@
 
 * xref:monitoring_concept.adoc[Monitoring]
 
+* xref:cicd_concept.adoc[Continuous Delivery]
 
 * Puppet
 ** xref:customer_pacco.adoc[Customer Pacco]
