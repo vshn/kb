@@ -10,21 +10,30 @@ A typical CI/CD framework would deploy images to the following three environment
 
 === Development
 
-The development environment is used for internal testing of infrastructure, such as endpoints,
-pipelines, back-end authentication, load tests, and database configuration. In order to be free
-to change or take down the development environment at will, we recommend against giving 
-external organizations any access to it.
+The development environment is used for internal testing of changes to infrastructure such as
+endpoints, pipelines, back-end authentication, load tests, and database configuration.
+
+Merge requests should deploy so-called 
+https://about.gitlab.com/blog/2016/11/22/introducing-review-apps[Review-Apps]
+that allow developers and involved parties to verify feature implementation even before
+changes are merged into the main branch.
+
+Automated tests run by the pipeline are meant to make sure consistently that existing features
+don't break and manual testing is reduced to a minimum, if necessary at all.
 
 === Integration
 
-The integration environment is used to develop and test the integration of external applications
-that access the application. It's also for testing the actual images that are release candidates
-for production.
+The integration environment is used to as a pre-production environment to confirm the correct
+functioning of all developed features. The images deployed here should be the actual images
+that are release candidates for production.
 
 === Production
 
-The production environment should be self-explanatory: It's used as the live, productive system used by
-real clients. Code should be deployed here only after passing rigorous tests on the other two environments.
+The production environment should be self-explanatory: It's used as the live, productive system 
+accessed by real clients. Images that have been built, deployed, and approved on the integration 
+environment can be deployed here.
 
-We recommend deploying the same images to production that were already tested on the integration
-environment, rather than building separate images for production.
+.Example Django
+====
+The https://gitlab.com/appuio/example-django[Example Django] project is a complete example that illustrates the recommended Continuous Integration / Continuous Deployment process.
+====
