@@ -11,7 +11,9 @@ A typical CI/CD framework would deploy images to the following three environment
 === Development
 
 The development environment is used for internal testing of infrastructure, such as endpoints,
-pipelines, back-end authentication, load tests, and database configuration.
+pipelines, back-end authentication, load tests, and database configuration. In order to be free
+to change or take down the development environment at will, we recommend against giving 
+external organizations any access to it.
 
 === Integration
 
