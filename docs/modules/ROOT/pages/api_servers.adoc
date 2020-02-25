@@ -246,7 +246,7 @@ $ curl -X PUT -d '{"customer": "qq1soft", "environment": "QQ1Dev", "project": "d
 
 === `DELETE /{customerId}/{fqdn}`
 
-Delete an existing server definition.  You can use the wildcard "_" for `customerId`.
+Delete an existing server definition. You can use the wildcard "_" for `customerId`.
 
 [source,bash]
 .Example

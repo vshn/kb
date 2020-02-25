@@ -8,7 +8,7 @@ An alternative to dumping databases is to use snapshots: Create a copy of the fi
 * No dumps, data files can be backed up directly
 * Restoring can be very quick, just restore the data files and start the service
 
-There is a caveat: The service doesn't know that his snapshot happens. The snapshot content is as if somebody had switched off the power: The state of the data files from any point in time.
+There is a caveat: The service doesn't know that its snapshot happens. The snapshot content is as if somebody had switched off the power: The state of the data files from any point in time.
 
 Luckily some services, in particular databases and filesystems, implement techniques to ensure or restore consistency after a system crash, which can be used to restore such snapshots into working data files. Examples include:
 * EXT4, xfs (pretty much any modern filesystem)
@@ -16,13 +16,13 @@ Luckily some services, in particular databases and filesystems, implement techni
 * MongoDB
 * PostgreSQL
 
-If a service does not have mechanisms for crash recovery, an alternative is to shut down the service, take the snapshot and restart it. This will lead to a service interruption a few seconds, but ensure consistency.
+If a service doesn't have mechanisms for crash recovery, an alternative is to shut down the service, take the snapshot and restart it. This will lead to a service interruption a few seconds, but ensure consistency.
 
-Snapshot functionality is not available in most filesystems, but implemented in the block layer below (LVM in our case). Since using LVM is not the default, care must be taken when setting up the server to put all services on LVM volumes, otherwise snapshots will not be possible.
+Snapshot functionality isn't available in most filesystems, but is implemented in the block layer below (LVM in our case). Since using LVM isn't the default, care must be taken when setting up the server to put all services on LVM volumes, otherwise snapshots won't be possible.
 
 == Backup
 
-As part of BURPs pre-backup phase the lvm-pre-backup script is invoked with the path to be snapshotted, e.g. `lvm-pre-backup /your/service/data`. This will:
+As part of BURPs pre-backup phase the lvm-pre-backup script is invoked with the path to be snapshotted, for example `lvm-pre-backup /your/service/data`. This will:
 
 * Find the LVM volume on which this directory resides
 * Create a snapshot of that volume
@@ -30,7 +30,7 @@ As part of BURPs pre-backup phase the lvm-pre-backup script is invoked with the 
 
 This works no matter if the LVM volume is `/your/service/data`, `/your/service`, `/your` or even `/`. lvm-pre-backup ensures that `/var/lib/lvm-snapshots/your-service-data` always contains the snapshotted content of `/your/service/data` by mounting the correct subdirectory of the snapshot.
 
-At this point BURP can backup the data files from the snapshot. When that's done, the lvm-pre-backup script must be told to release the snapshot in BURPs post-backup phase, e.g. `lvm-pre-backup /your/service/data release`. This will:
+At this point BURP can backup the data files from the snapshot. When that's done, the lvm-pre-backup script must be told to release the snapshot in BURPs post-backup phase, for example `lvm-pre-backup /your/service/data release`. This will:
 
 * Check the health of the snapshot
 * Unmount it
