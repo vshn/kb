@@ -10,7 +10,8 @@ A typical CI/CD framework would deploy images to the following three environment
 
 === Development
 
-The development environment is used for internal testing of changes to infrastructure such as
+The development environment is used to verify that features developed locally work in a
+cleanly set up environment, which may include changes to infrastructure such as
 endpoints, pipelines, back-end authentication, load tests, and database configuration.
 
 Merge requests should deploy so-called 
