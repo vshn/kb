@@ -32,9 +32,11 @@ that are release candidates for production.
 
 The production environment should be self-explanatory: It's used as the live, productive system 
 accessed by real clients. Images that have been built, deployed, and approved on the integration 
-environment can be deployed here.
+environment can be deployed here. In extension to that, it's advisable to create an audit trail 
+from the source code to the production state by tagging the deployed images with either the Git 
+commit SHA or the related Git tag.
 
-.Example Django
+.Reference implementations
 ====
 The https://gitlab.com/appuio/example-django[Example Django] project is a complete example that illustrates the recommended CI/CD process.
 ====
