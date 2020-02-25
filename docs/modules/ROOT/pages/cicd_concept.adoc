@@ -36,5 +36,5 @@ environment can be deployed here.
 
 .Example Django
 ====
-The https://gitlab.com/appuio/example-django[Example Django] project is a complete example that illustrates the recommended Continuous Integration / Continuous Deployment process.
+The https://gitlab.com/appuio/example-django[Example Django] project is a complete example that illustrates the recommended CI/CD process.
 ====
