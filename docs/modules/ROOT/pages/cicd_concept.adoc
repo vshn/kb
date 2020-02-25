@@ -24,7 +24,7 @@ don't break and manual testing is reduced to a minimum, if necessary at all.
 
 === Integration
 
-The integration environment is used to as a pre-production environment to confirm the correct
+The integration environment is used as a pre-production environment to confirm the correct
 functioning of all developed features. The images deployed here should be the actual images
 that are release candidates for production.
 
