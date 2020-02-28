@@ -15,7 +15,7 @@ cleanly set up environment, which may include changes to infrastructure such as
 endpoints, pipelines, back-end authentication, load tests, and database configuration.
 
 Merge requests should deploy so-called 
-https://about.gitlab.com/blog/2016/11/22/introducing-review-apps[Review-Apps]
+https://about.gitlab.com/blog/2016/11/22/introducing-review-apps[review apps]
 that allow developers and involved parties to verify feature implementation even before
 changes are merged into the main branch.
 
