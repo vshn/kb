@@ -1,8 +1,9 @@
 = Continuous Delivery
 
-In order to ensure that code released to production is of the highest possible quality, we recommend
-setting up three separate deployment environments to play different roles in the Continuous Integration 
-/ Continuous Delivery process.
+In order to ensure that code released to production is of the highest possible quality, 
+and to maximize development speed and ensure least possible impact on operations for releasing 
+updates, we recommend setting up three separate deployment environments to play different 
+roles in the Continuous Integration/Continuous Delivery (CI/CD) process.
 
 == Target Enviroments
 
@@ -25,8 +26,9 @@ don't break and manual testing is reduced to a minimum, if necessary at all.
 === Integration
 
 The integration environment is used as a pre-production environment to confirm the correct
-functioning of all developed features. The images deployed here should be the actual images
-that are release candidates for production.
+functioning of all developed features (i.e. the efforts of _all developers_ "integrated into 
+the main branch"). The images deployed here should be the actual images that are release 
+candidates for production.
 
 === Production
 
