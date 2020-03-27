@@ -1,0 +1,39 @@
+[[creation]]
+=== When's VSHN notified when I create a new ticket?
+
+VSHNeers are notified immediately of the creation of new tickets. Higher priority tickets trigger additional internal alert systems for a faster response.
+
+.Example e-mail to VSHNeers after ticket activity
+image::ticket-email.png[]
+
+[[events]]
+=== What happens after I submit a new ticket?
+
+Depending on the priority of the ticket and your support SLA, one or many of the following might happen:
+
+* Very often VSHNeers will add comments to the ticket, asking for more information or requesting for your feedback. You will be notified by e-mail of these comments, and you can see the history of conversations in the VSHN Portal.
++
+.Comments in tickets
+image::ticket-comments.png[]
+
+* If your ticket belongs to a support project, the layout of the ticket list will change significatly, showing the projects and its associated tickets inside, as shown in the picture below.
++
+.Ticket projects
+image::ticket-projects.png[]
+
+[[secrets]]
+=== How can I add secrets (passwords, keys, etc.) to tickets?
+
+To communicate secrets to VSHNeers with a secure mechanism, follow these steps:
+
+. After creating a new ticket, click on it on the list of tickets, and scroll down until the section "Secrets" is visible.
+. Click on the btn:[Add Secret] button.
+. Enter a name for the secret in the **Name** field.
+. Enter the value of the secret in the **Secret** field.
+. Select "Week" or "Day" in the **Time to live (TTL)** field. 
+. Click on the btn:[Save] button.
+
+The VSHN Portal is designed in such a way that secrets transmitted through this mechanism can only be viewed once, which prevents anyone else from accessing them.
+
+.Ticket secrets
+image::ticket-secrets.png[]

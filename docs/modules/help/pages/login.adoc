@@ -1,0 +1,24 @@
+= Logging in
+
+[[login]]
+== Logging in
+
+To log in to the VSHN Portal, enter your username and password.
+
+.Logging in to the VSHN Portal
+image::login.gif[]
+
+[[error]]
+== Incorrect credentials
+
+If the username or password is incorrect, you will see an error message appear below the password field.
+
+.Wrong credentials
+image::login-error.png[]
+
+[[faq]]
+== Frequently Asked Questions
+
+include::partial$faq_login.adoc[]
+
+include::partial$footer.adoc[]
