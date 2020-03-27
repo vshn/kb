@@ -1,0 +1,23 @@
+.VSHN Portal Help
+* xref:index.adoc[How to use the VSHN Portal]
+* xref:login.adoc[Logging in]
+* xref:dashboard.adoc[Using the Dashboard]
+* xref:faq.adoc[FAQ]
+
+* Tickets
+** xref:tickets_edit.adoc[Creating a ticket]
+** xref:tickets_list.adoc[Viewing the ticket list]
+** xref:tickets_detail.adoc[Viewing a ticket]
+
+* Reporting
+** xref:reporting_hours.adoc[Accessing the Worked Hours Report]
+** xref:reporting_servers.adoc[Accessing the Servers Report]
+** xref:reporting_services.adoc[Accessing the Services Report]
+
+* Users
+** xref:users_list.adoc[Viewing the list of users]
+** xref:users_edit.adoc[Adding or modifying users]
+
+* Servers
+** xref:server_list.adoc[Viewing the list of servers]
+** xref:server_details.adoc[Viewing the details of a server]

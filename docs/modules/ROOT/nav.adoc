@@ -1,8 +1,11 @@
 * xref:index.adoc[Home]
 
+* xref:changelog.adoc[Changelog]
+
 * xref:contact.adoc[Contact VSHN]
 ** xref:create_ticket.adoc[Create a Ticket]
 
+.Knowledge Base
 * xref:backup_concept.adoc[Backup]
 ** xref:list_available_backups.adoc[List Available Backups]
 ** xref:list_files_backup.adoc[List Files in Backup]
@@ -15,11 +18,13 @@
 ** xref:solr_backup_restore.adoc[Solr Backup and Restore]
 ** xref:view_backup_log_file.adoc[View Backup Log File]
 ** xref:vcs_repos_burp.adoc[VCS Repositories with BURP]
+** xref:lvm_snapshots_burp.adoc[LVM Snapshots with BURP]
 
 * xref:maintenance_process.adoc[Maintenance Process]
 
 * xref:monitoring_concept.adoc[Monitoring]
 
+* xref:cicd_concept.adoc[Continuous Delivery]
 
 * Puppet
 ** xref:customer_pacco.adoc[Customer Pacco]
@@ -33,3 +38,6 @@
 ** xref:api_dns.adoc[DNS]
 ** xref:api_openshift.adoc[OpenShift]
 ** xref:api_servers.adoc[Servers]
+
+* OpenShift
+** xref:openshift_red_hat_registry.adoc[Red Hat container registry]

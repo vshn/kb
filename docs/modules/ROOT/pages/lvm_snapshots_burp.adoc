@@ -1,0 +1,51 @@
+= LVM Snapshots with BURP
+
+== Basics
+
+An alternative to dumping databases is to use snapshots: Create a copy of the filesystem to freeze its content in time, and back up this copy. This can be very quick because data doesn't need to be copied immediately; the copy can just reference the original data until it changes, and only when that happens the data is actually duplicated ("copy on write").
+
+* Disk space requirements increase with the lifetime of the snapshot (as changes to the original accumulate)
+* No dumps, data files can be backed up directly
+* Restoring can be very quick, just restore the data files and start the service
+
+There is a caveat: The service doesn't know that its snapshot happens. The snapshot content is as if somebody had switched off the power: The state of the data files from any point in time.
+
+Luckily some services, in particular databases and filesystems, implement techniques to ensure or restore consistency after a system crash, which can be used to restore such snapshots into working data files. Examples include:
+* EXT4, xfs (pretty much any modern filesystem)
+* MariaDB
+* MongoDB
+* PostgreSQL
+
+If a service doesn't have mechanisms for crash recovery, an alternative is to shut down the service, take the snapshot and restart it. This will lead to a service interruption a few seconds, but ensure consistency.
+
+Snapshot functionality isn't available in most filesystems, but is implemented in the block layer below (LVM in our case). Since using LVM isn't the default, care must be taken when setting up the server to put all services on LVM volumes, otherwise snapshots won't be possible.
+
+== Backup
+
+As part of BURPs pre-backup phase the lvm-pre-backup script is invoked with the path to be snapshotted, for example `lvm-pre-backup /your/service/data`. This will:
+
+* Find the LVM volume on which this directory resides
+* Create a snapshot of that volume
+* Mount the correct sub-directory of that snapshot in `/var/lib/lvm-snapshots/`; in this example, the path would be `/var/lib/lvm-snapshots/your-service-data` (note slashes being replaced by dashes).
+
+This works no matter if the LVM volume is `/your/service/data`, `/your/service`, `/your` or even `/`. lvm-pre-backup ensures that `/var/lib/lvm-snapshots/your-service-data` always contains the snapshotted content of `/your/service/data` by mounting the correct subdirectory of the snapshot.
+
+At this point BURP can backup the data files from the snapshot. When that's done, the lvm-pre-backup script must be told to release the snapshot in BURPs post-backup phase, for example `lvm-pre-backup /your/service/data release`. This will:
+
+* Check the health of the snapshot
+* Unmount it
+* Delete it if it isn't mounted anywhere else
+
+== Restore
+
+Restoring from a snapshot is simple, all you need to do is stop your service, empty its data directory, and do a normal BURP file restore of `/var/lib/lvm-snapshots/your-service-data` into your services's data directory.
+
++
+[source,bash]
+--
+$ rm -r /your/service/data/*
+$ burp -a l -r ^/var/lib/lvm-snapshots/your-service-data/  # Choose backup number
+$ burp -a r -b $BACKUPNUMBER -d /your/service/data/ -r ^/var/lib/lvm-snapshots/your-service-data/ -s 5
+--
+
+Now you can start your service. It should quickly restore the consistency of the data by using its crash recovery procedures and resume normal operations.

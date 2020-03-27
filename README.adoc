@@ -1,6 +1,6 @@
 = VSHN Knowledge Base
 
-This repository contains all the documents of the VSHN Knowledge Base hosted in https://kb.vshn.ch/[kb.vshn.ch].
+This repository contains all the documents of the VSHN Knowledge Base hosted on https://kb.vshn.ch/[kb.vshn.ch].
 
 == Writing Style
 
@@ -15,6 +15,7 @@ To preview your changes locally, follow these steps:
 . Make sure you have Docker installed.
 . Clone this repository.
 . Make your changes in a separate branch.
+. Type the `make check` command to make sure your writing conforms to the style guidelines.
 . Commit your changes.
 . Type the `make` command to build the documentation site in your system.
 . The `index.html` page will open automatically when the build process has finished.
