@@ -42,6 +42,10 @@
 * OpenShift
 ** xref:openshift_red_hat_registry.adoc[Red Hat container registry]
 
-* https://kb.vshn.ch/products/index.html[VSHN Products]
+.Products
+* xref:master@products:ROOT:index.adoc[Products Overview]
+* xref:master@products:ROOT:managed_service_intro.adoc[VSHN Managed Service]
+* xref:master@products:ROOT:vss_intro.adoc[VSHN Syn Support]
 
-* https://kb.vshn.ch/products/legaldocs_intro.html[Legal documents]
+.Legal
+* xref:master@products:ROOT:legaldocs_intro.adoc[Legal Documents Overview]
