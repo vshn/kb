@@ -88,7 +88,7 @@ Required during initial server setup. Ubuntu repositories not available via HTTP
 
 *Workaround for package repositories*
 
-Use https for the puppetlabs repository (works) and use https with a mirror that supports it instead of the Ubuntu repos, e.g. 'https://ftp.uni-mainz.de/ubuntu'.
+Use https for the puppetlabs repository (works) and use https with a mirror that supports it instead of the Ubuntu repos, for example 'https://ftp.uni-mainz.de/ubuntu'.
 
 *Workaround for key servers*
 
@@ -237,7 +237,7 @@ a|
 
 |
 |
-|required to pull docker images for both OpenShift Components (Master, Node, ...) and images for builds, eg base images, s2i builder, and so on...
+|required to pull docker images for both OpenShift Components (Master, Node, ...) and images for builds, for example base images and s2i builder images.
 
 |443
 |TCP
@@ -276,7 +276,7 @@ a|
 |n/a
 |212.51.145.245
 |2a02:168:4607:100::/64
-|*Do NOT use this as the only IP in ACLs, use as addition to a Jumphost IP.*
+|*Don't use this as the only IP in ACLs, use as addition to a Jumphost IP.*
 
 |*VSHN Jumphost*
 |management1.corp.vshn.net
