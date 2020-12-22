@@ -5,6 +5,9 @@
 * xref:contact.adoc[Contact VSHN]
 ** xref:create_ticket.adoc[Create a Ticket]
 
+* https://products.docs.vshn.ch/[Product Documentation]
+* https://legal.docs.vshn.ch/[Legal Documents]
+
 .Knowledge Base
 * xref:backup_concept.adoc[Backup]
 ** xref:list_available_backups.adoc[List Available Backups]
@@ -52,6 +55,3 @@
 ** xref:vault_auto_unseal.adoc[Auto Unseal]
 
 * xref:vshn_infra_ips.adoc[Infrastructure IP Addresses]
-
-* https://products.docs.vshn.ch/[Product Documentation]
-* https://legal.docs.vshn.ch/[Legal Documents]
