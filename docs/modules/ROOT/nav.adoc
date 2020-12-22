@@ -53,8 +53,5 @@
 
 * xref:vshn_infra_ips.adoc[Infrastructure IP Addresses]
 
-.Products
-* https://products.docs.vshn.ch/[Overview]
-
-.Legal
-* xref:master@products:ROOT:legaldocs_intro.adoc[Legal Documents Overview]
+* https://products.docs.vshn.ch/[Product Documentation]
+* https://legal.docs.vshn.ch/[Legal Documents]
